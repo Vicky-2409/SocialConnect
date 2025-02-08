@@ -49,7 +49,7 @@
 
 import PayUApiCalls from "@/utils/apiCalls/PayUApiCalls";
 import { redirect } from "next/navigation";
-import { NextRequest } from "next/server"; // Import the proper type for NextRequest
+import { NextRequest } from "next/server"; 
 
 export async function POST(req: NextRequest) { // Use NextRequest type instead of any
   const contentType = req.headers.get("content-type") || "";
