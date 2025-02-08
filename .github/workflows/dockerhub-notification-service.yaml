@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -  uses: actions/checkout@v4
-      -  run: cd notification-service && docker build -t socialconnect-notification-service .
+      -  run: cd notification-service && docker build -t svignesh2409/socialconnect-notification-service .
       -  run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
          env: 
              DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
              DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      -  run: docker push socialconnect-notification-service
+      -  run: docker push svignesh2409/socialconnect-notification-service
