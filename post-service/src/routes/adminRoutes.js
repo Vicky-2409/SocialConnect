@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const injection_1 = require("./injection");
+const verifyAdmin_1 = require("../middlewares/verifyAdmin");
+const router = (0, express_1.Router)();
+router.get("/reports", verifyAdmin_1.verifyAdmin, injection_1.adminController.getReportsData.bind(injection_1.adminController));
+router.patch("/reports/:reportId", verifyAdmin_1.verifyAdmin, injection_1.adminController.resolveReport.bind(injection_1.adminController));
+router.delete("/deletePost/:postId", verifyAdmin_1.verifyAdmin, injection_1.postController.deletePost.bind(injection_1.postController));
+router.get("/getDashboardCardData", verifyAdmin_1.verifyAdmin, injection_1.adminController.getDashboardCardData.bind(injection_1.adminController));
+exports.default = router;

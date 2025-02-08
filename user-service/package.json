@@ -1,0 +1,53 @@
+{
+  "name": "user-service",
+  "version": "1.0.0",
+  "main": "server.ts",
+  "scripts": {
+    "dev": "nodemon src/app.ts",
+    "build": "tsc",
+    "start": "node ./dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/amqplib": "^0.10.6",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/jwt-decode": "^2.2.1",
+    "@types/morgan": "^1.9.9",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.10.2",
+    "@types/nodemailer": "^6.4.17",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.715.0",
+    "@aws-sdk/lib-storage": "^3.715.0",
+    "@types/aws-sdk": "^0.0.42",
+    "amqplib": "^0.10.5",
+    "aws-sdk": "^2.1692.0",
+    "bcryptjs": "^2.4.3",
+    "cookie": "^1.0.2",
+    "cookie-parser": "^1.4.7",
+    "core-js": "^3.39.0",
+    "http": "^0.0.1-security",
+    "jwt-decode": "^4.0.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.16",
+    "socket.io": "^4.8.1",
+    "winston": "^3.17.0"
+  }
+}
