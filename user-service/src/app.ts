@@ -18,7 +18,7 @@ const app = express();
 const httpServer = http.createServer(app);
 
 // CORS configuration
-const frontEndUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+const frontEndUrl = process.env.FRONTEND_URL ;
 const corsOptions = {
   origin: frontEndUrl,
   credentials: true,

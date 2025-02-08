@@ -1,5 +1,5 @@
 export const RABBITMQ_URL =
-  process.env.RABBITMQ_URL || "amqp://localhost:5672/";
+  process.env.RABBITMQ_URL || "amqp://rabbitmq-service.default.svc.cluster.local:5672"
 
 export const SocketEventEnum = Object.freeze({
     CONNECTED_EVENT: "connected",

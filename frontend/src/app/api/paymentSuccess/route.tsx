@@ -291,7 +291,7 @@ export async function POST(req: Request) {
   }
 
   // Sanitize and format base URL
-  const baseUrl = FRONTEND_DOMAIN?.trim().replace(/\/+$/, '') || "http://35.225.102.73";
+  const baseUrl = FRONTEND_DOMAIN?.trim().replace(/\/+$/, '');
   
   // Safely encode URL components
   const queryParams = new URLSearchParams({
