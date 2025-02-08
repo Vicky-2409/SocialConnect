@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -  uses: actions/checkout@v4
-      -  run: cd posts-service && docker build -t svignesh2409/socialconnect-posts-service .
+      -  run: cd post-service && docker build -t svignesh2409/socialconnect-posts-service .
       -  run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
          env: 
              DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
