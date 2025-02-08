@@ -3,9 +3,9 @@ export const PayU = {
 };
 
 //  /* PROD:
-export const FRONTEND_DOMAIN = "http://35.200.239.107 ";
+export const FRONTEND_DOMAIN = "http://35.200.239.107";
 
-const DOMAIN = "http://35.200.239.107 ";
+const DOMAIN = "http://35.200.239.107";
 
 const USER_SERVICE_DOMAIN = DOMAIN;
 const POSTS_SERVICE_DOMAIN = DOMAIN;
