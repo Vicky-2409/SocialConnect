@@ -4,7 +4,7 @@ import { MESSAGES } from '../utils/constants';
 import { StatusCode } from '../utils/StatusCode';
 
 dotenv.config();
-
+//
 export const connectDB = async (): Promise<void> => {
   try {
     await mongoose.connect(String(process.env.MONGO_URI));

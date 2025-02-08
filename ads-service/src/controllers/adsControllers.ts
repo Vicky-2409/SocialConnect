@@ -35,7 +35,7 @@ export default class AdsController implements IAdsController {
         status
       );
       logger.info(
-        `Transaction added successfully - TransactionId: ${transactionId}`
+        `Transaction added successfully - TransactionId${transactionId}`
       );
 
       res.status(StatusCode.OK).send(transactionId);
