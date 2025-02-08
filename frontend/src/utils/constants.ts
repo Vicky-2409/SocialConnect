@@ -16,11 +16,11 @@ const ADS_SERVICE_DOMAIN = DOMAIN;
 // DEV:
 // export const FRONTEND_DOMAIN = "http://localhost:3000";
 
-// // const USER_SERVICE_DOMAIN = "http://localhost:5001";
-// // const POSTS_SERVICE_DOMAIN = "http://localhost:5002";
-// // const MESSAGE_SERVICE_DOMAIN = "http://localhost:5003";
-// // const NOTIFICATION_SERVICE_DOMAIN = "http://localhost:5004";
-// // const ADS_SERVICE_DOMAIN = "http://localhost:5005";
+// const USER_SERVICE_DOMAIN = "http://localhost:5001";
+// const POSTS_SERVICE_DOMAIN = "http://localhost:5002";
+// const MESSAGE_SERVICE_DOMAIN = "http://localhost:5003";
+// const NOTIFICATION_SERVICE_DOMAIN = "http://localhost:5004";
+// const ADS_SERVICE_DOMAIN = "http://localhost:5005";
 
 // const USER_SERVICE_DOMAIN = "http://35.225.102.73";
 // const POSTS_SERVICE_DOMAIN = "http://posts-service-srv:5002";

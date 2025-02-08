@@ -159,7 +159,7 @@ function PublicFeed() {
     try {
       setIsLoading(true);
       const { topPostsData }: { topPostsData: IPost[] } = 
-        await postService.getPublicFeed(); // Assuming your API supports pagination
+        await postService.getPublicFeed(); 
       
       if (topPostsData.length === 0) {
         setHasMore(false);
