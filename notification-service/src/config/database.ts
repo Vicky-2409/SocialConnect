@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import dotenv from "dotenv";
 import { MESSAGES } from '../utils/constants';
 import { StatusCode } from '../utils/StatusCode';
-
+//
 dotenv.config();
 
 export const connectDB = async (): Promise<void> => {
