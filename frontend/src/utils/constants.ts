@@ -3,17 +3,15 @@ export const PayU = {
 };
 
 //  /* PROD:
-  export const FRONTEND_DOMAIN = "http://35.225.102.73";
+export const FRONTEND_DOMAIN = "http://35.225.102.73";
 
-  const DOMAIN = "http://35.225.102.73";
+const DOMAIN = "http://35.225.102.73";
 
-  const USER_SERVICE_DOMAIN = DOMAIN;
-  const POSTS_SERVICE_DOMAIN = DOMAIN;
-  const MESSAGE_SERVICE_DOMAIN = DOMAIN;
-  const NOTIFICATION_SERVICE_DOMAIN = DOMAIN;
-  const ADS_SERVICE_DOMAIN = DOMAIN;
-
-  // FRONTEND_URL=http://35.225.102.73
+const USER_SERVICE_DOMAIN = DOMAIN;
+const POSTS_SERVICE_DOMAIN = DOMAIN;
+const MESSAGE_SERVICE_DOMAIN = DOMAIN;
+const NOTIFICATION_SERVICE_DOMAIN = DOMAIN;
+const ADS_SERVICE_DOMAIN = DOMAIN;
 
 // DEV:
 // export const FRONTEND_DOMAIN = "http://localhost:3000";
