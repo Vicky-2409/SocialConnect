@@ -227,7 +227,7 @@ export default class PostRepository implements IPostRepository {
         .exec();
   
       if (!postData) throw new Error(MESSAGES.POST_NOT_FOUND);
-      // if (postData.isDeleted) throw new Error(MESSAGES.POST_ALREADY_DELETED);
+      if (postData.isDeleted) throw new Error(MESSAGES.POST_ALREADY_DELETED);
       return postData;
     } catch (error: any) {
       throw new Error(error.message);

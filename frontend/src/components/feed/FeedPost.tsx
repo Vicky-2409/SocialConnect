@@ -1177,12 +1177,6 @@ const FeedPost: React.FC<Props> = ({ postData, currUserData }) => {
   const [commentsLength, setCommentsLength] = useState<number>(0);
 
   const imageUrls = postData?.imageUrls || [postData?.imageUrls || ""];
-
-  
-  if(postData && postData.isDeleted ){
-    return (<h1>Sorry this post is deleted</h1>)
-  }
-
   
 
   if (currUserData) {

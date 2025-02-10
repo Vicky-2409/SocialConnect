@@ -34,7 +34,6 @@ function Post({ currUserData }: { currUserData: IUser }) {
     })(id);
   }, [id, dispatch]);
 
-
   return (
     <>
 
