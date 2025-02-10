@@ -18,8 +18,9 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      deleteCookie("token");
-      Router.replace("/");
+      console.log("Got 401 error need to delete token");
+      // deleteCookie("token");
+      // Router.replace("/");
     }
     return Promise.reject(error);
   }
