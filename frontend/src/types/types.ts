@@ -51,6 +51,7 @@ export interface IPost {
   isLiked: boolean;
   isBookmarked: boolean;
   fromAdsService?: boolean;
+  isDeleted?:boolean;
 }
 
 interface LikedUser {

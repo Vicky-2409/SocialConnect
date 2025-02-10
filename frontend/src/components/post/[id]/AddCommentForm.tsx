@@ -839,6 +839,7 @@ interface RootState {
   post: {
     postData: {
       comments: IComment[];
+      isDeleted?:boolean
     };
   };
 }
@@ -857,6 +858,10 @@ const AddCommentForm: React.FC<CommentFormProps> = ({ userData, userId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const MAX_CHARS = 140;
+
+  if(postData && postData?.isDeleted ){
+    return (<h1>Sorry this post is deleted</h1>)
+  }
 
   const {
     register,

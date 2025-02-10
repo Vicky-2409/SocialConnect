@@ -1178,6 +1178,13 @@ const FeedPost: React.FC<Props> = ({ postData, currUserData }) => {
 
   const imageUrls = postData?.imageUrls || [postData?.imageUrls || ""];
 
+  
+  if(postData && postData.isDeleted ){
+    return (<h1>Sorry this post is deleted</h1>)
+  }
+
+  
+
   if (currUserData) {
     useEffect(() => {
       if (!postData?._id) return;

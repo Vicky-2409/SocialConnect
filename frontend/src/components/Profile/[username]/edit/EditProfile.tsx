@@ -148,9 +148,8 @@ function EditProfile() {
   } = userData || {};
 
   const dateOfBirth = userData?.dateOfBirth
-  ? new Date(userData.dateOfBirth).toISOString().split("T")[0]
-  : new Date("1970-11-12").toISOString().split("T")[0];
-
+    ? new Date(userData.dateOfBirth + "").toISOString().split("T")[0]
+    : null;
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
