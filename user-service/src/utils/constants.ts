@@ -1,5 +1,4 @@
-export const RABBITMQ_URL =
-  process.env.RABBITMQ_URL || "amqp://rabbitmq-service:5672"
+export const RABBITMQ_URL = "amqp://rabbitmq-service:5672"
 
 export const SocketEventEnum = Object.freeze({
     CONNECTED_EVENT: "connected",

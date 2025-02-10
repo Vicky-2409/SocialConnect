@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MESSAGES = exports.RABBITMQ_URL = void 0;
 // DEV:
 // export const RABBITMQ_URL  = "amqp://rabbitmq:5672"
-exports.RABBITMQ_URL = "amqp://localhost:5672/";
+exports.RABBITMQ_URL = "amqp://rabbitmq-service:5672";
 exports.MESSAGES = {
     DB_CONNECTION_FAILED: 'DB Connection Failed',
     DB_CONNECTION_SUCCESS: 'Notification Service Connected',

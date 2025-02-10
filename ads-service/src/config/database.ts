@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { MESSAGES } from "../utils/constants";
 import { StatusCode } from "../utils/enums";
-//
+
 export default async (): Promise<void> => {
   try {
     await mongoose.connect(String(process.env.MONGO_URI));

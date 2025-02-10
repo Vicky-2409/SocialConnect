@@ -12,12 +12,6 @@ import "react-toastify/dist/ReactToastify.css";
 import CenterDiv from "@/components/createPost/CenterDiv";
 import userService from "@/utils/apiCalls/userService";
 
-interface UserData {
-  userData: {
-    restrictedFromPostingUntil?: string;
-  };
-}
-
 const ErrorFallback = ({ error }: { error: Error }) => (
   <Container maxWidth="sm">
     <Box
