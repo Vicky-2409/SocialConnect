@@ -3,9 +3,9 @@ export const PayU = {
 };
 
 //  /* PROD:
-export const FRONTEND_DOMAIN = "http://socialconnect.site";
+export const FRONTEND_DOMAIN = "https://socialconnect.site";
 
-const DOMAIN = "http://socialconnect.site";
+const DOMAIN = "https://socialconnect.site";
 
 const USER_SERVICE_DOMAIN = DOMAIN;
 const POSTS_SERVICE_DOMAIN = DOMAIN;

@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: socialconnect-site-tls
+  namespace: default
+spec:
+  secretName: socialconnect-site-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: socialconnect.site
+  dnsNames:
+    - socialconnect.site
