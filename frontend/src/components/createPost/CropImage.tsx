@@ -815,7 +815,7 @@
 import React, { useState, createRef, ChangeEvent, FormEvent } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   Box,
@@ -1199,7 +1199,6 @@ function CropImage({ setIsCaptionPage, setPostData }: CropImageProps) {
           py: 4,
         }}
       >
-        <ToastContainer />
 
         <Typography variant="h4" component="h1" align="center" gutterBottom>
           Create New Post

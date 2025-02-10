@@ -1140,7 +1140,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { formatDate } from "@/utils/formatString";
 import postService from "@/utils/apiCalls/postService";
@@ -1320,7 +1320,7 @@ const FeedPost: React.FC<Props> = ({ postData, currUserData }) => {
 
   return (
     <div className="bg-white rounded-xl shadow-sm transition-all duration-300 hover:shadow-md relative">
-      <ToastContainer />
+
 
       {/* Header */}
       {/* ... (keep existing header) */}

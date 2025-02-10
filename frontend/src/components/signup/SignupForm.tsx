@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ToastContainer, toast, Bounce, ToastOptions } from "react-toastify";
+import {  toast, Bounce, ToastOptions } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { verifyUser } from "@/redux/userSlice";
 import { motion } from "framer-motion";
@@ -78,7 +78,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ setIsVerifyForm }) => {
 
   return (
     <div className="w-full max-w-md mx-auto p-4">
-      <ToastContainer />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

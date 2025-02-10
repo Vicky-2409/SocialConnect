@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import LoginWithGoogle from "./LoginWithGoogle";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Bounce, ToastContainer, ToastOptions, toast } from "react-toastify";
+import { Bounce,  ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { loginUser } from "@/redux/userSlice";
@@ -64,7 +64,6 @@ function LoginForm() {
 
   return (
     <div className="w-full max-w-md mx-auto p-4">
-      <ToastContainer />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

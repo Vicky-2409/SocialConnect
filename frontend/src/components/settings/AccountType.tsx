@@ -15,7 +15,7 @@ import { TransitionProps } from "@mui/material/transitions";
 
 import Image from "next/image";
 import React, { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import AlertDialog from "./AlertDialog";
 import RequestWeNetTick from "./RequestWeNetTick/RequestWeNetTick";
 
@@ -112,17 +112,6 @@ function AccountType({ currUser }: { currUser: IUser }) {
           </button>
         </div>
 
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
 
         {/* Professional Account Additional Section */}
         {isProfessional && (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import { ShieldCheck, Eye, EyeOff } from "lucide-react";
 import { toastOptions } from "@/utils/toastOptions";
 import userService from "@/utils/apiCalls/userService";
@@ -74,7 +74,7 @@ const ChangePassword = () => {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-blue-50 to-purple-50 p-4 sm:p-6 md:p-8">
-      <ToastContainer />
+
 
       <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg shadow-blue-500/5 overflow-hidden">
         <div className="px-6 pt-8 pb-6">

@@ -2,7 +2,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { Bounce, ToastContainer, ToastOptions, toast } from "react-toastify";
+import { Bounce, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { validateDateOfBirth } from "@/utils/validateDOB";
 import { USER_SERVICE_URL } from "@/utils/constants";
@@ -68,7 +68,6 @@ const VerifyUserForm: React.FC<VerifyUserFormProps> = ({
 
   return (
     <div className="w-full h-screen bg-cover bg-center flex items-center justify-center">
-      <ToastContainer />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

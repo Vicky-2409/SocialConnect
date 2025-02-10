@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Bounce, ToastContainer, ToastOptions, toast } from "react-toastify";
+import { Bounce, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   validateDateOfBirth,
@@ -148,8 +148,9 @@ function EditProfile() {
   } = userData || {};
 
   const dateOfBirth = userData?.dateOfBirth
-    ? new Date(userData.dateOfBirth + "").toISOString().split("T")[0]
-    : null;
+  ? new Date(userData.dateOfBirth).toISOString().split("T")[0]
+  : new Date("1970-11-12").toISOString().split("T")[0];
+
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
@@ -173,7 +174,6 @@ function EditProfile() {
 
   return (
     <Container maxWidth="sm" sx={{ py: 4 }}>
-      <ToastContainer />
       <Button
         startIcon={<ArrowBack />}
         onClick={() => router.back()}

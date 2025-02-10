@@ -514,7 +514,7 @@ import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   Box,
@@ -686,7 +686,6 @@ function AddCaption({ postData }: Props) {
         justifyContent: "center",
       }}
     >
-      <ToastContainer />
 
       <StyledPaper>
         <Box

@@ -14,16 +14,14 @@ const apiClient = axios.create({
 
 apiClient.interceptors.response.use(
   (response) => {
-    // If the response is successful, just return it
     return response;
   },
   (error) => {
-    // If the error response has a status code 401, redirect to login
     if (error.response && error.response.status === 401) {
       deleteCookie("token");
       Router.replace("/");
     }
-    return Promise.reject(error); // Reject the promise for other errors
+    return Promise.reject(error);
   }
 );
 

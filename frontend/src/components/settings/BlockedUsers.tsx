@@ -3,7 +3,7 @@ import userService from "@/utils/apiCalls/userService";
 import { toastOptions } from "@/utils/toastOptions";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AlertDialog from "./AlertDialog";
 
@@ -73,7 +73,6 @@ function BlockedUsers() {
 
   return (
     <div className="h-full w-full bg-white">
-      <ToastContainer />
 
       {/* Header */}
       <div className="h-24 flex items-center justify-center border-b border-gray-100">

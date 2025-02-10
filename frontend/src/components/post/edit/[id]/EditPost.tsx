@@ -493,7 +493,7 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Bounce, ToastContainer, ToastOptions, toast } from "react-toastify";
+import { Bounce, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ChevronLeft, ChevronRight, Smile } from "lucide-react";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
@@ -692,7 +692,6 @@ const EditPost = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-8">
-      <ToastContainer />
 
       <div className="max-w-2xl mx-auto">
         {/* Header */}

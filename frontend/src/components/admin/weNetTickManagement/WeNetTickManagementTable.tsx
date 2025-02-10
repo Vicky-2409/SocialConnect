@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { formatDate } from "@/utils/formatString";
 import { toastOptions } from "@/utils/toastOptions";
 import "react-toastify/dist/ReactToastify.css";
@@ -72,7 +72,6 @@ export default function WeNetTickManagementTable() {
 
   return (
     <div className="w-full">
-      <ToastContainer />
       <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">

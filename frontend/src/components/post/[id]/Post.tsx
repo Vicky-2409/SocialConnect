@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import FeedPostSkeleton from "../../feed/FeedPostSkeleton";
 import FeedPost from "../../feed/FeedPost";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "next/navigation";
 import postService from "@/utils/apiCalls/postService";
@@ -36,7 +36,6 @@ function Post({ currUserData }: { currUserData: IUser }) {
 
   return (
     <>
-      <ToastContainer />
       {loading ? (
         <FeedPostSkeleton />
       ) : (

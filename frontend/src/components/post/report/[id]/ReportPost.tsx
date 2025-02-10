@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import postService from "@/utils/apiCalls/postService";
 import PostPreview from "./PostPreview";
@@ -101,7 +101,6 @@ const ReportPost = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      <ToastContainer />
 
       {/* Header */}
       <div className="bg-white shadow-sm">

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Bounce, ToastContainer, ToastOptions, toast } from "react-toastify";
+import { Bounce, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Lock, User } from "lucide-react";
@@ -61,7 +61,6 @@ function AdminLoginForm() {
 
   return (
     <>
-      <ToastContainer />
       <div className="w-full">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Username Field */}

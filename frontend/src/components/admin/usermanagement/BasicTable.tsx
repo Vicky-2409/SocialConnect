@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { Bounce, ToastContainer, ToastOptions, toast } from "react-toastify";
+import { Bounce,  ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ChevronLeft, ChevronRight, Users2 } from "lucide-react";
 import userService from "@/utils/apiCalls/admin/userService";
@@ -169,7 +169,6 @@ export default function AdminUserManagementTable() {
 
   return (
     <div className="w-full">
-      <ToastContainer />
       <div className="rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden bg-white dark:bg-gray-800">
         <div className="overflow-x-auto">
           <table className="w-full">

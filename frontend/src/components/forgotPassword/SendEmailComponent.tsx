@@ -3,7 +3,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import userService from "@/utils/apiCalls/userService";
 import { toastOptions } from "@/utils/toastOptions";
@@ -43,7 +43,6 @@ const VerifyUserForm: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <ToastContainer />
       <div className="relative bg-white/10 backdrop-blur-xl shadow-2xl rounded-2xl p-8 text-center w-[400px]">
         {/* Icon Header */}
         <div className="mb-6 flex justify-center">

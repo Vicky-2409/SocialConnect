@@ -3,15 +3,6 @@ export const PayU = {
 };
 
 //  /* PROD:
-export const FRONTEND_DOMAIN = "https://socialconnect.site";
-
-const DOMAIN = "https://socialconnect.site";
-
-const USER_SERVICE_DOMAIN = DOMAIN;
-const POSTS_SERVICE_DOMAIN = DOMAIN;
-const MESSAGE_SERVICE_DOMAIN = DOMAIN;
-const NOTIFICATION_SERVICE_DOMAIN = DOMAIN;
-const ADS_SERVICE_DOMAIN = DOMAIN;
 
 // DEV:
 // export const FRONTEND_DOMAIN = "http://localhost:3000";
@@ -27,6 +18,17 @@ const ADS_SERVICE_DOMAIN = DOMAIN;
 // const MESSAGE_SERVICE_DOMAIN = "http://message-service-srv:5003";
 // const NOTIFICATION_SERVICE_DOMAIN = "http://notification-service-srv:5004";
 // const ADS_SERVICE_DOMAIN = "http://ads-service-srv:5005";
+
+export const FRONTEND_DOMAIN = "https://socialconnect.site";
+
+const DOMAIN = "https://socialconnect.site";
+
+const USER_SERVICE_DOMAIN = DOMAIN;
+const POSTS_SERVICE_DOMAIN = DOMAIN;
+const MESSAGE_SERVICE_DOMAIN = DOMAIN;
+const NOTIFICATION_SERVICE_DOMAIN = DOMAIN;
+const ADS_SERVICE_DOMAIN = DOMAIN;
+
 
 export const USER_SERVICE_URL = `${USER_SERVICE_DOMAIN}/api/user-service`;
 export const POSTS_SERVICE_URL = `${POSTS_SERVICE_DOMAIN}/api/posts-service`;

@@ -3,7 +3,7 @@ import React, { useState, createRef, ChangeEvent, FormEvent } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import Image from "next/image";
-import { Bounce, ToastContainer, ToastOptions, toast } from "react-toastify";
+import { Bounce, ToastOptions, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { USER_SERVICE_URL } from "@/utils/constants";
 import userService from "@/utils/apiCalls/userService";
@@ -91,7 +91,6 @@ const AddCoverImage: React.FC = () => {
       className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6 rounded-xl shadow-md"
       encType="multipart/form-data"
     >
-      <ToastContainer />
       {cropData && (
         <Image
           width={100}

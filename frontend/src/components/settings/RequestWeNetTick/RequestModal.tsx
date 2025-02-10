@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import userService from "@/utils/apiCalls/userService";
 
@@ -112,7 +112,6 @@ const ModernDocumentUpload: React.FC<ModernDocumentUploadProps> = ({
 
   return (
     <div className="relative">
-      <ToastContainer />
       <button
         onClick={() => setOpen(true)}
         className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium text-sm"

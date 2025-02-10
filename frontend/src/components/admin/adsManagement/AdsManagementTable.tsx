@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { formatDate } from "@/utils/formatString";
 import adsService from "@/utils/apiCalls/admin/adsService";
@@ -71,7 +71,6 @@ export default function AdsManagementTable() {
 
   return (
     <div className="w-full">
-      <ToastContainer />
       <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
