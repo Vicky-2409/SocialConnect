@@ -839,6 +839,7 @@ interface RootState {
   post: {
     postData: {
       comments: IComment[];
+      isDeleted?:boolean
     };
   };
 }
@@ -917,6 +918,11 @@ const AddCommentForm: React.FC<CommentFormProps> = ({ userData, userId }) => {
     },
     [id, reset, router, isSubmitting]
   );
+
+  if (postData.isDeleted) {
+    return null;
+  }
+
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
