@@ -35,8 +35,6 @@ function Post({ currUserData }: { currUserData: IUser }) {
   }, [id, dispatch]);
 
   if(postData && postData.isDeleted){
-
-    //need to handel deleted post here
     return <h1>The Post is Deleted</h1>
   }
 

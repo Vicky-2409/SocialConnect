@@ -919,7 +919,7 @@ const AddCommentForm: React.FC<CommentFormProps> = ({ userData, userId }) => {
     [id, reset, router, isSubmitting]
   );
 
-  if (postData.isDeleted) {
+  if (postData && postData.isDeleted) {
     return null;
   }
 
