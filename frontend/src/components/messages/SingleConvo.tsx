@@ -476,6 +476,7 @@ import { ChatEventEnum } from "@/redux/constants";
 import userService from "@/utils/apiCalls/userService";
 import Image from "next/image";
 import { ArrowLeft, X } from "lucide-react";
+import { toast } from "react-toastify";
 
 interface Message {
   _id: string;
@@ -536,7 +537,7 @@ function SingleConvo({
           setMessages(messages);
         }
       } catch (error: any) {
-        alert(error.message);
+        toast.error(error.message)
       }
     })();
   }, [convoId]);
@@ -607,7 +608,7 @@ function SingleConvo({
   async function handleSubmitMessageSend(event: FormEvent<HTMLFormElement>) {
     try {
       event.preventDefault();
-      if (!convoId) return alert("Select a conversation");
+      if (!convoId) return toast.info("Select a conversation");
   
       const formData = new FormData();
       formData.append("message", message);
@@ -627,7 +628,7 @@ function SingleConvo({
       setAttachment(null);
       
     } catch (error: any) {
-      alert(error.message);
+      toast.error(error.message);
     }
   }
   function handleOnMessageChange(e: ChangeEvent<HTMLInputElement>) {
@@ -651,13 +652,13 @@ function SingleConvo({
 
     // Check file type
     if (!ALLOWED_TYPES.includes(file.type)) {
-      alert('Please select an image file (JPEG, PNG, or GIF)');
+      toast.warning('Please select an image file (JPEG, PNG, or GIF)');
       return;
     }
 
     // Check file size
     if (file.size > MAX_FILE_SIZE) {
-      alert('File size should be less than 5MB');
+      toast.warning('File size should be less than 5MB');
       return;
     }
 
