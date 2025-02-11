@@ -1195,6 +1195,10 @@ const FeedPost: React.FC<Props> = ({ postData, currUserData }) => {
       fetchPostData();
     }, [postData?._id]);
 
+    if(postData && postData.isDeleted){
+      return <h1>The Post is Deleted</h1>
+    }
+
     useEffect(() => {
       if (updatedPostData) {
         setLiked(updatedPostData.isLiked);

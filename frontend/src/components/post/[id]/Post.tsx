@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 import postService from "@/utils/apiCalls/postService";
 import { useDispatch } from "react-redux";
 import { storePostData } from "@/redux/postSlice";
-import { IUser } from "@/types/types";
+import { IPost, IUser } from "@/types/types";
 import { toastOptions } from "@/utils/toastOptions";
 
 function Post({ currUserData }: { currUserData: IUser }) {
@@ -16,7 +16,7 @@ function Post({ currUserData }: { currUserData: IUser }) {
 
   const dispatch = useDispatch();
 
-  const [postData, setPostData] = useState(null);
+  const [postData, setPostData] = useState<IPost | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,6 +33,10 @@ function Post({ currUserData }: { currUserData: IUser }) {
       }
     })(id);
   }, [id, dispatch]);
+
+  if(postData && postData.isDeleted){
+    return <h1>The Post is Deleted</h1>
+  }
 
   return (
     <>
