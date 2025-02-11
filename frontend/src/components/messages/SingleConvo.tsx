@@ -445,8 +445,6 @@
 
 
 
-
-
 "use client";
 import React, {
   ChangeEvent,
@@ -610,22 +608,28 @@ function SingleConvo({
     try {
       event.preventDefault();
       if (!convoId) return alert("Select a conversation");
-
+  
       const formData = new FormData();
       formData.append("message", message);
       if (attachment) {
         formData.append("attachment", attachment);
       }
-
+  
       const latestMessage = await messageService.sendMessage(convoId, formData);
       setMessages((messages) => [latestMessage, ...messages]);
       setMessage("");
-      setAttachment(null); // Clear the attachment after sending
+      
+      // Clear attachment and preview URL
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+        setPreviewUrl(null);
+      }
+      setAttachment(null);
+      
     } catch (error: any) {
       alert(error.message);
     }
   }
-
   function handleOnMessageChange(e: ChangeEvent<HTMLInputElement>) {
     setMessage(e.target.value);
     if (socket && convoId) {
