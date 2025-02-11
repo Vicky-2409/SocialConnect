@@ -39,7 +39,7 @@ export default class ProfileRepository implements IProfileRepository {
       const updatedUser = {
         ...user._doc,
         ...userData,
-        dateOfBirth: new Date(userData?.dateOfBirth || user.dateOfBirth || ""),
+        dateOfBirth: new Date(userData?.dateOfBirth || user.dateOfBirth || "1970-11-12"),
       };
       const result = await userCollection.findOneAndUpdate(
         { _id },
