@@ -56,7 +56,8 @@ export default class AdsService implements IAdsService {
       );
       console.log("Added transaction");
       console.log(transaction);
-      if (!transaction)  throw new Error(MESSAGES.ERRORS.TRANSACTION_DATA_NOT_FOUND);
+      if (!transaction)
+        throw new Error(MESSAGES.ERRORS.TRANSACTION_DATA_NOT_FOUND);
       logger.info("Transaction added successfully", { transaction });
       if (status === "success") {
         const postId = PayUOrderData?.productinfo;
@@ -81,7 +82,9 @@ export default class AdsService implements IAdsService {
             postData.WeNetAds
           );
         } catch (error: any) {
-          logger.error(`Failed to send post ad data to MQ, Error: ${error.message}`);
+          logger.error(
+            `Failed to send post ad data to MQ, Error: ${error.message}`
+          );
           console.log(error.message);
         }
       }

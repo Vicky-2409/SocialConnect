@@ -33,14 +33,14 @@ type postInputs = {
 type ReplyCommentProps = {
   postId?: string;
   parentCommentId: string;
-  content:string
-}
+  content: string;
+};
 
 export default {
   //posts
-  
+
   createReply: async function (data: ReplyCommentProps) {
-console.log(data);
+    console.log(data);
 
     try {
       const res = await apiClient.post("/comment/createReply", {
@@ -300,7 +300,10 @@ console.log(data);
     try {
       // const url = `${postServiceUrl}/comment/${commentId}`;
       // const res = await axios.delete(url, { withCredentials: true });
-console.log(commentId,"commentId//////////////////////////////////////////");
+      console.log(
+        commentId,
+        "commentId//////////////////////////////////////////"
+      );
 
       const res = await apiClient.delete(`/comment/${commentId}`);
 

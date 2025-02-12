@@ -10,10 +10,8 @@ export interface IAdminRepository {
   getReportsDocumentCount(): Promise<number>;
 }
 
-
-
-export default class AdminRepository implements IAdminRepository{
-  async getReportsData (skip: number, limit: number): Promise<IReport[]> {
+export default class AdminRepository implements IAdminRepository {
+  async getReportsData(skip: number, limit: number): Promise<IReport[]> {
     try {
       const reportsData: any = await reportsCollection
         .find()
@@ -22,14 +20,13 @@ export default class AdminRepository implements IAdminRepository{
         .populate("reportedBy") // Populate 'reportedBy' field with 'username' from 'users' collection
         .populate("entityId") // Populate 'entityId' dynamically based on 'entityType'
         .exec();
-        console.log(reportsData);
-        
+      console.log(reportsData);
+
       return reportsData;
     } catch (error: any) {
       throw new Error(MESSAGES.ERROR_FETCHING_REPORTS);
     }
   }
-
 
   async resolveReport(reportId: string): Promise<string> {
     try {
@@ -40,39 +37,30 @@ export default class AdminRepository implements IAdminRepository{
         throw new Error(MESSAGES.ERROR_RESOLVING_REPORT);
       }
 
-
-      
       report.isResolved = true;
       report?.save();
 
-       return MESSAGES.REPORT_RESOLVED_SUCCESS;;
+      return MESSAGES.REPORT_RESOLVED_SUCCESS;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
-
-
   async getDashboardCardData(): Promise<number[]> {
     try {
-      const totalPosts = await postsCollection.countDocuments()
-      const totalReports = await reportsCollection.countDocuments()
-      return  [totalPosts, totalReports]
+      const totalPosts = await postsCollection.countDocuments();
+      const totalReports = await reportsCollection.countDocuments();
+      return [totalPosts, totalReports];
     } catch (error: any) {
       throw new Error(MESSAGES.ERROR_FETCHING_DASHBOARD_DATA);
     }
   }
 
-
-
-  async getReportsDocumentCount () {
+  async getReportsDocumentCount() {
     try {
-      return await reportsCollection.countDocuments()
+      return await reportsCollection.countDocuments();
     } catch (error: any) {
       throw new Error(MESSAGES.ERROR_FETCHING_REPORT_COUNT);
     }
   }
 }
-
-
-

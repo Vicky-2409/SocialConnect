@@ -49,7 +49,7 @@ const VerifyUserForm: React.FC<VerifyUserFormProps> = ({
       data._id = verifyUser;
 
       await toast.promise(
-        userService.sentOTP( data),
+        userService.sentOTP(data),
         {
           pending: "Sending OTP",
           success: "OTP sent successfully",

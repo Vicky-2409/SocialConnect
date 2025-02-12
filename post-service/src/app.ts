@@ -9,23 +9,23 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import { errorHandler } from "./middlewares/errorHandler";
-import {connectDB}  from './config/database';
+import { connectDB } from "./config/database";
 dotenv.config();
 
 const app = express();
 
-// /* 
+// /*
 const frontEndUrl = process.env.FRONTEND_URL;
 const corsOptions = {
   origin: frontEndUrl,
   credentials: true,
 };
 
-app.use(cors(corsOptions)); 
+app.use(cors(corsOptions));
 
 // Handle preflight requests
 app.options("*", cors(corsOptions));
-// */ 
+// */
 
 /*test:
 app.use(cors())
@@ -46,8 +46,8 @@ app.use(errorHandler);
 startConsumer();
 connectDB();
 
-const PORT = process.env.PORT  || 5002;
+const PORT = process.env.PORT || 5002;
 
 app.listen(PORT, () => {
-    console.log(`Post Service is running on port ${PORT}`);
-  });
+  console.log(`Post Service is running on port ${PORT}`);
+});

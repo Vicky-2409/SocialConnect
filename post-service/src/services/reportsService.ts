@@ -1,6 +1,5 @@
 import { IReport } from "../models/reportsCollection";
-import {IReportsRepository} from "../repositories/reportsRepository";
-
+import { IReportsRepository } from "../repositories/reportsRepository";
 
 export interface IReportsService {
   addReport(
@@ -12,18 +11,13 @@ export interface IReportsService {
   ): Promise<IReport>; // Add a report
 }
 
+export default class ReportsService implements IReportsService {
+  private reportsRepository: IReportsRepository;
 
-
-
-
-export default class ReportsService implements IReportsService{
-
-  private reportsRepository:IReportsRepository
-
-  constructor(reportsRepository:IReportsRepository){
-    this.reportsRepository = reportsRepository
+  constructor(reportsRepository: IReportsRepository) {
+    this.reportsRepository = reportsRepository;
   }
-  async addReport (
+  async addReport(
     entityType: "posts" | "comments" | "users",
     entityId: string,
     reportedBy: string,
@@ -43,4 +37,3 @@ export default class ReportsService implements IReportsService{
     }
   }
 }
-

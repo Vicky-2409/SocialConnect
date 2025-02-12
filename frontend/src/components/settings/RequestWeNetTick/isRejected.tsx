@@ -7,9 +7,7 @@ interface ModernDocumentUploadProps {
   onClick: (success: boolean) => void;
 }
 
-const isRejected: React.FC<ModernDocumentUploadProps> = ({
-  onClick,
-}) => {
+const isRejected: React.FC<ModernDocumentUploadProps> = ({ onClick }) => {
   return (
     <div className="w-full h-[75%] flex flex-col items-center justify-center">
       <div>
@@ -31,6 +29,6 @@ const isRejected: React.FC<ModernDocumentUploadProps> = ({
       </div>
     </div>
   );
-}
+};
 
 export default isRejected;

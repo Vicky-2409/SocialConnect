@@ -35,7 +35,6 @@ export const MessageHandler: IMessageHandler = {
           throw new Error(`Unknown operation: ${operation}`);
       }
 
-
       // Send response back to the replyTo queue
       // const responseBuffer = Buffer.from(JSON.stringify(response));
       // channel.sendToQueue(replyTo, responseBuffer, { correlationId });
@@ -71,7 +70,6 @@ async function createWeNetAd(data: any) {
     const { postId, WeNetAds } = data;
 
     const message = await postsServices.createWeNetAd(postId, WeNetAds);
-
   } catch (error: any) {
     throw new Error(error.message);
   }

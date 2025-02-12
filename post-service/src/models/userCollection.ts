@@ -32,7 +32,7 @@ const UserSchema = new Schema<IUser>(
     reported: [{ type: Types.ObjectId }],
     reportsReceived: [{ type: Types.ObjectId }],
     postsBookmarked: [{ type: Types.ObjectId, ref: "posts" }],
-    restrictedFromPostingUntil: { type: Date }, 
+    restrictedFromPostingUntil: { type: Date },
     isRestricted: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }

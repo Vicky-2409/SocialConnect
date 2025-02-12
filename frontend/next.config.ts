@@ -5,23 +5,19 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
+        protocol: "https",
         hostname: "social-connect-store.s3.us-east-1.amazonaws.com",
       },
       {
-        protocol: 'https',
+        protocol: "https",
         hostname: "lh3.googleusercontent.com",
-      }
+      },
     ],
   },
 
   eslint: {
     ignoreDuringBuilds: true, // Disables ESLint checks
   },
-
-  // experimental: {
-  //   optimizeCss: true,
-  // },
 };
 
 export default nextConfig;

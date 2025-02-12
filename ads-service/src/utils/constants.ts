@@ -7,11 +7,10 @@ export const PAYU_SALT = process.env.PAYU_SALT;
 export const POST_PROMOTION_PERIOD = 30;
 
 // PROD:
-export const RABBITMQ_URL  = "amqp://rabbitmq-service:5672"
+export const RABBITMQ_URL = "amqp://rabbitmq-service:5672";
 
 // DEV:
 // export const RABBITMQ_URL  = "amqp://rabbitmq:5672"
-
 // export const RABBITMQ_URL =
 //   process.env.RABBITMQ_URL || "amqp://localhost:5672/";
 
@@ -64,4 +63,3 @@ export enum Role {
   Admin = "wenet-admin",
   User = "wenet-user",
 }
-

@@ -18,7 +18,6 @@ export default class ProfileRepository implements IProfileRepository {
     try {
       const userData = await userCollection.findOne({ _id });
 
-
       if (!userData) throw new Error(UserErrorMsg.NO_USER_DATA);
       return userData;
     } catch (error: any) {
@@ -39,7 +38,9 @@ export default class ProfileRepository implements IProfileRepository {
       const updatedUser = {
         ...user._doc,
         ...userData,
-        dateOfBirth: new Date(userData?.dateOfBirth || user.dateOfBirth || "1970-11-12"),
+        dateOfBirth: new Date(
+          userData?.dateOfBirth || user.dateOfBirth || "1970-11-12"
+        ),
       };
       const result = await userCollection.findOneAndUpdate(
         { _id },
@@ -70,10 +71,12 @@ export default class ProfileRepository implements IProfileRepository {
   async uploadImage(imageFile: unknown, imageType: string): Promise<string> {
     try {
       const folderName = imageType;
-      const result = await uploadToS3Bucket(imageFile as IMulterFile, folderName);
+      const result = await uploadToS3Bucket(
+        imageFile as IMulterFile,
+        folderName
+      );
 
-    
-      return result
+      return result;
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -162,10 +165,7 @@ export default class ProfileRepository implements IProfileRepository {
         user1Data.following?.push(user2Id);
         user2Data.followers?.push(user1Id);
 
-
-        
-        handleFollow(String(user2Id),user1Data)
-        
+        handleFollow(String(user2Id), user1Data);
       }
 
       await user1Data.save();

@@ -25,8 +25,6 @@ const UserSocketProvider: React.FC<{ children: React.ReactNode }> = ({
         auth: { token },
       });
 
-
-
       socketInstance.on("connect", () => {
         console.log("Connected to socket");
         setSocket(socketInstance);

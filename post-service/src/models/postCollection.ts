@@ -15,12 +15,6 @@ interface IPost extends Document {
   createdAt?: Date;
 }
 
-
-
-
-
-
-
 interface IWeNetAds {
   isPromoted: boolean;
   expiresOn: Date | string;

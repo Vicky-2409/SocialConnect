@@ -14,20 +14,20 @@ export interface MQINotification {
 }
 
 export interface MQIPost {
-  _id : string | Types.ObjectId;
-  userId:  string | Types.ObjectId;
+  _id: string | Types.ObjectId;
+  userId: string | Types.ObjectId;
   caption: string;
-  imageUrl : string;
-  isDeleted: boolean
+  imageUrl: string;
+  isDeleted: boolean;
 }
 
 export interface MQIPostForAds {
-  _id : string | Types.ObjectId;
-  userId:  string | Types.ObjectId;
+  _id: string | Types.ObjectId;
+  userId: string | Types.ObjectId;
   caption: string;
-  imageUrls : string[];
+  imageUrls: string[];
   isDeleted: boolean;
-  WeNetAds: IWeNetAds
+  WeNetAds: IWeNetAds;
 }
 
 export const publisher = {
@@ -60,7 +60,7 @@ export const publisher = {
       const [channel, connection] = await this.connectRabbitMQ();
 
       const exchangeName = MQExchangeName;
-      const routingKey = postServiceProducers[0]  // Specific routing key
+      const routingKey = postServiceProducers[0]; // Specific routing key
       await channel.assertExchange(exchangeName, "direct", { durable: true });
 
       const messageProperties = {
@@ -86,12 +86,15 @@ export const publisher = {
     }
   },
 
-  publishPostMessageToNotification: async function (postData: MQIPost, action: string) {
+  publishPostMessageToNotification: async function (
+    postData: MQIPost,
+    action: string
+  ) {
     try {
       const [channel, connection] = await this.connectRabbitMQ();
 
       const exchangeName = MQExchangeName;
-      const routingKey = postServiceProducers[1]  // Specific routing key
+      const routingKey = postServiceProducers[1]; // Specific routing key
       await channel.assertExchange(exchangeName, "direct", { durable: true });
 
       const messageProperties = {
@@ -125,7 +128,7 @@ export const publisher = {
       const [channel, connection] = await this.connectRabbitMQ();
 
       const exchangeName = MQExchangeName;
-      const routingKey = postServiceProducers[1]  // Specific routing key
+      const routingKey = postServiceProducers[1]; // Specific routing key
       await channel.assertExchange(exchangeName, "direct", { durable: true });
 
       const messageProperties = {
@@ -151,12 +154,15 @@ export const publisher = {
     }
   },
 
-  publishPostForAdsMessage: async function (postData: MQIPostForAds, action: string) {
+  publishPostForAdsMessage: async function (
+    postData: MQIPostForAds,
+    action: string
+  ) {
     try {
       const [channel, connection] = await this.connectRabbitMQ();
 
       const exchangeName = MQExchangeName;
-      const routingKey = postServiceProducers[0]  // Specific routing key
+      const routingKey = postServiceProducers[0]; // Specific routing key
       await channel.assertExchange(exchangeName, "direct", { durable: true });
 
       const messageProperties = {

@@ -39,9 +39,7 @@ function UnFollowAlert(props: AlertDialogProps): React.JSX.Element {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {alert}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{alert}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description"></DialogContentText>
         </DialogContent>

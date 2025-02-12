@@ -9,7 +9,6 @@ import userCollection, { IUser } from "../models/userCollection";
 import { emitSocketEvent } from "../socket";
 import { ChatEventEnum, MESSAGES } from "../utils/constants";
 
-
 export interface IMessageRepository {
   createConversation(
     participantId: string,
@@ -68,7 +67,7 @@ export interface IMessageRepository {
   ): Promise<string>;
 }
 
-export default class MessageRepository implements IMessageRepository{
+export default class MessageRepository implements IMessageRepository {
   async createConversation(
     participantId: string,
     userId: string
@@ -291,7 +290,6 @@ export default class MessageRepository implements IMessageRepository{
 
   async markAsRead(convoId: string, userId: string) {
     try {
-
       const convoData = await conversationsCollection.findById(convoId);
 
       if (!convoData) throw new Error(MESSAGES.CONVO_NOT_FOUND);
@@ -375,5 +373,3 @@ export default class MessageRepository implements IMessageRepository{
     }
   }
 }
-
-

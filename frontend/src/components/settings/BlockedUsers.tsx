@@ -73,7 +73,6 @@ function BlockedUsers() {
 
   return (
     <div className="h-full w-full bg-white">
-
       {/* Header */}
       <div className="h-24 flex items-center justify-center border-b border-gray-100">
         <h1 className="text-gray-800 font-semibold text-2xl">Blocked Users</h1>

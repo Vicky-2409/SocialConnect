@@ -26,7 +26,7 @@ const NotificationSchema: Schema = new Schema(
     type: {
       type: String,
       required: true,
-      enum: ["follow", "like", "comment", "restrict" , "approved" , "rejected"],
+      enum: ["follow", "like", "comment", "restrict", "approved", "rejected"],
     },
     notificationMessage: {
       type: String,

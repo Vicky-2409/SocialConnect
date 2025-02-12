@@ -16,4 +16,7 @@ export const postServiceConsumers = [
   { queueName: "ads-post", routingKey: "wenet-ads-post-key" },
 ];
 
-export const postServiceProducers = ["wenet-post-ads-key","wenet-post-notification-key"]; //routing keys 
+export const postServiceProducers = [
+  "wenet-post-ads-key",
+  "wenet-post-notification-key",
+]; //routing keys

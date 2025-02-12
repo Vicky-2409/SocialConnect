@@ -4,7 +4,6 @@ import userCollection from "../models/userCollection";
 import postsCollection from "../models/postCollection";
 import commentCollection from "../models/commentCollection";
 
-
 export interface IReportsRepository {
   addReport(
     entityType: "posts" | "comments" | "users", // Restrict to specific entity types
@@ -15,7 +14,7 @@ export interface IReportsRepository {
   ): Promise<IReport>; // The method returns a Promise that resolves to an IReport
 }
 
-export default class ReportsRepository{
+export default class ReportsRepository {
   async addReport(
     entityType: "posts" | "comments" | "users",
     entityId: string,
@@ -24,7 +23,6 @@ export default class ReportsRepository{
     reportDescription: string
   ): Promise<IReport> {
     try {
-      
       const reportData = {
         entityType,
         entityId: new Types.ObjectId(entityId),
@@ -42,7 +40,7 @@ export default class ReportsRepository{
       );
 
       //add the report information to the reported entity's document
-      let reportedEntityData : any;                                                                                                                                                           
+      let reportedEntityData: any;
       if (entityType === "posts") {
         reportedEntityData = await postsCollection.findOneAndUpdate(
           { _id: new Types.ObjectId(entityId) },
@@ -59,7 +57,8 @@ export default class ReportsRepository{
 
       //add the report information to the reported user's document
 
-      const reportedUserId: string | Types.ObjectId = reportedEntityData?.userId || entityId
+      const reportedUserId: string | Types.ObjectId =
+        reportedEntityData?.userId || entityId;
 
       await userCollection.updateOne(
         { _id: new Types.ObjectId(reportedUserId) },
@@ -72,5 +71,3 @@ export default class ReportsRepository{
     }
   }
 }
-
-

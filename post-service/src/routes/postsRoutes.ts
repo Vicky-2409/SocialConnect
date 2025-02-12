@@ -5,20 +5,12 @@ import { postController } from "./injection";
 
 const router = Router();
 
-// router.post(
-//   "/createPost/image",
-//   verifyUser,
-//   upload.single("image"),
-//   postController.createPost.bind(postController)
-// );
-
 router.post(
   "/createPost/images",
   verifyUser,
   upload.array("images", 10), // Allow up to 10 images
   postController.createPost.bind(postController)
 );
-
 
 router.post(
   "/createPost",

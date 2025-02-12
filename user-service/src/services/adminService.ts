@@ -173,35 +173,3 @@ export default class AdminService implements IAdminService {
     }
   }
 }
-
-// async restrictUser(userId: string): Promise<IUser> {
-//   try {
-
-//     const response = await this.userRepository.restrictUser(userId);
-
-//     if (response) {
-//       try {
-//         await this.userRepository.sendRestrictNotificationToMQ(
-//           response._id.toString(),
-//           response._id.toString(),
-//           "restrict",
-//           "You are restricted for posting content for 7 days",
-//           "users",
-//           response._id.toString()
-//         );
-//       } catch (error: any) {
-//         console.log(error.message);
-//       }
-//     }
-
-//     try {
-//       await this.sendUserDataToMQ(userId, MQActions.editUser);
-//     } catch (error: any) {
-//       console.log(error.message);
-//     }
-
-//     return response;
-//   } catch (error: any) {
-//     throw new Error(error.message);
-//   }
-// }

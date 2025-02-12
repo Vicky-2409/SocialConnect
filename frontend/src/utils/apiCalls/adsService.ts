@@ -20,8 +20,6 @@ export default {
         status,
       });
 
-
-
       return res.data;
     } catch (error: any) {
       throw new Error(error.message);
@@ -31,7 +29,6 @@ export default {
     try {
       const res = await apiClient.get("/getPosts");
 
-      
       return res.data;
     } catch (error: any) {
       throw new Error(error.message);

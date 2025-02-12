@@ -58,13 +58,13 @@ type sentOtpInputs = {
 export default {
   googleSignin: async function (credentialResponse: any) {
     try {
-      const res =  await axios.post(
+      const res = await axios.post(
         `${USER_SERVICE_URL}/login/googleSignin`,
         credentialResponse,
         {
           withCredentials: true,
         }
-      )
+      );
       return res;
     } catch (error: any) {
       throw new Error(error.message);
@@ -93,31 +93,35 @@ export default {
     }
   },
 
-
   verifyOTP: async function (data: otpInputs) {
     try {
-      const res = await axios.post(`${USER_SERVICE_URL}/signup/verifyOTP`, data, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${USER_SERVICE_URL}/signup/verifyOTP`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
       return res;
     } catch (error: any) {
       throw new Error(error.message);
     }
   },
 
-  resentOTP: async function ({ _id }:{_id:string}) {
+  resentOTP: async function ({ _id }: { _id: string }) {
     try {
-      const res = await axios.post(`${USER_SERVICE_URL}/signup/reSendOTP`, { _id }, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${USER_SERVICE_URL}/signup/reSendOTP`,
+        { _id },
+        {
+          withCredentials: true,
+        }
+      );
       return res;
     } catch (error: any) {
       throw new Error(error.message);
     }
   },
-
-
-
 
   sentOTP: async function (data: sentOtpInputs) {
     try {
@@ -177,11 +181,10 @@ export default {
       throw new Error(errorMessage);
     }
   },
-  addCoverImage: async function (formData:FormData) {
+  addCoverImage: async function (formData: FormData) {
     try {
-      const url =  `${userServiceUrl}/profile/userData/image/coverPic`;
+      const url = `${userServiceUrl}/profile/userData/image/coverPic`;
       const res = await axios.patch(url, formData, { withCredentials: true });
-
 
       return res.data;
     } catch (error: any) {
@@ -193,12 +196,10 @@ export default {
     }
   },
 
-
-  updateProfilePic: async function (formData:FormData) {
+  updateProfilePic: async function (formData: FormData) {
     try {
-      const url =   `${userServiceUrl}/profile/userData/image/profilePic`;
+      const url = `${userServiceUrl}/profile/userData/image/profilePic`;
       const res = await axios.patch(url, formData, { withCredentials: true });
-
 
       return res.data;
     } catch (error: any) {
@@ -210,14 +211,10 @@ export default {
     }
   },
 
-
-  
-
-  editProfile: async function (data:editProfileInputs) {
+  editProfile: async function (data: editProfileInputs) {
     try {
-      const url =  `${USER_SERVICE_URL}/profile/userData`;
+      const url = `${USER_SERVICE_URL}/profile/userData`;
       const res = await axios.put(url, data, { withCredentials: true });
-
 
       return res.data;
     } catch (error: any) {

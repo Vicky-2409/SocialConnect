@@ -18,7 +18,7 @@ export interface IPostRepository {
   createPost(userId: string, imageUrls: string[]): Promise<IPost>;
 
   searchPost(keyword: string): Promise<IPost[]>;
-  
+
   addCaption(postId: string, caption: string): Promise<IPost>;
 
   getPostData(postId: string | Types.ObjectId): Promise<IPost>;
@@ -41,7 +41,10 @@ export interface IPostRepository {
   ): Promise<string>;
 
   postIsLiked(userId: string, postId: string): Promise<boolean>;
-  postIsBookmarked(userId: string, bookmarkedBy: Types.ObjectId[]): Promise<boolean>;
+  postIsBookmarked(
+    userId: string,
+    bookmarkedBy: Types.ObjectId[]
+  ): Promise<boolean>;
 
   getTopPosts(): Promise<string[]>;
 
@@ -98,12 +101,10 @@ export default class PostRepository implements IPostRepository {
     }
   }
 
-
-
   async searchPost(keyword: string): Promise<IPost[]> {
     try {
       const regex = new RegExp(keyword, "i");
-  
+
       const postData = await postsCollection
         .find({
           $or: [
@@ -115,13 +116,11 @@ export default class PostRepository implements IPostRepository {
           select: "username firstName lastName profilePicUrl",
         })
         .exec();
-      return postData
+      return postData;
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
-  
-  
 
   async addCaption(postId: string, caption: string): Promise<IPost> {
     try {
@@ -167,38 +166,6 @@ export default class PostRepository implements IPostRepository {
     }
   }
 
-  // async getSinglePost(postId: string): Promise<IPost> {
-  //   try {
-  //     const _id = new Types.ObjectId(postId);
-  //     const postData = await postsCollection
-  //       .findOne({ _id })
-  //       .populate({
-  //         path: "comments",
-  //         populate: {
-  //           path: "userId",
-  //           select: "username profilePicUrl", // Adjust as necessary
-  //         },
-  //       })
-  //       .populate({
-  //         path: "likedBy", // Populate likedBy field
-  //         select: "username profilePicUrl", // Select fields you want from the user model
-  //       })
-  //       .exec();
-
-
-        
-  //     if (!postData) throw new Error(MESSAGES.POST_NOT_FOUND);
-  //     if (postData.isDeleted) throw new Error(MESSAGES.POST_ALREADY_DELETED);
-  //     return postData;
-  //   } catch (error: any) {
-  //     throw new Error(error.message);
-  //   }
-  // }
-
-
-
-
-
   async getSinglePost(postId: string): Promise<IPost> {
     try {
       const _id = new Types.ObjectId(postId);
@@ -216,16 +183,16 @@ export default class PostRepository implements IPostRepository {
               populate: {
                 path: "userId", // Populate userId for each reply
                 select: "username profilePicUrl", // Adjust as necessary
-              }
-            }
-          ]
+              },
+            },
+          ],
         })
         .populate({
           path: "likedBy", // Populate likedBy field
           select: "username profilePicUrl", // Select fields you want from the user model
         })
         .exec();
-  
+
       if (!postData) throw new Error(MESSAGES.POST_NOT_FOUND);
       // if (postData.isDeleted) throw new Error(MESSAGES.POST_ALREADY_DELETED);
       return postData;
@@ -233,8 +200,6 @@ export default class PostRepository implements IPostRepository {
       throw new Error(error.message);
     }
   }
-  
-
 
   async editPost(postId: string, caption: string): Promise<string> {
     try {
@@ -387,8 +352,11 @@ export default class PostRepository implements IPostRepository {
       throw new Error(error.message);
     }
   }
-  
-  async postIsBookmarked(userId: string, bookmarkedBy: Types.ObjectId[]): Promise<boolean> {
+
+  async postIsBookmarked(
+    userId: string,
+    bookmarkedBy: Types.ObjectId[]
+  ): Promise<boolean> {
     try {
       const isBookmarked = bookmarkedBy.includes(
         userId as unknown as Types.ObjectId
@@ -462,7 +430,7 @@ export default class PostRepository implements IPostRepository {
         _id: postId,
         userId,
         caption,
-        imageUrl :imageUrls[0],
+        imageUrl: imageUrls[0],
         isDeleted,
       };
 

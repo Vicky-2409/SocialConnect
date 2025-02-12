@@ -24,10 +24,6 @@ export default class CommentController implements ICommentController {
     logger.info("Entering addReplyComment method");
     try {
       const { postId, parentCommentId, content } = req.body.data;
-      console.log(
-        req.body.data,
-        "//////////////////////////////////////////////"
-      );
 
       const id = req.user._id;
       logger.debug(
@@ -66,10 +62,7 @@ export default class CommentController implements ICommentController {
     logger.info("Entering addComment method");
     try {
       const { postId } = req.params;
-      console.log(
-        req.params,
-        "//////////////////////////////////////////////"
-      );
+      console.log(req.params, "//////////////////////////////////////////////");
       const id = req.user._id;
       const { comment } = req.body;
       logger.debug(

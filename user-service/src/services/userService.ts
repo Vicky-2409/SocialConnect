@@ -1,4 +1,3 @@
-// import userRepository from "../repositories/userRepository";
 import { IUser } from "../models/User";
 import { MQActions } from "../rabbitMq/config";
 import {
@@ -217,10 +216,7 @@ export default class UserService implements IUserService {
 
   async restrictUser(userId: string): Promise<IUser> {
     try {
-
       const response = await this.userRepository.restrictUser(userId);
-
-
 
       if (response) {
         try {

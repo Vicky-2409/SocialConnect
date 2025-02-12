@@ -2,7 +2,7 @@
 import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { Bounce, ToastOptions, toast } from "react-toastify";
-import { useRouter } from "next/navigation";  
+import { useRouter } from "next/navigation";
 import userService from "@/utils/apiCalls/userService";
 
 const toastOptions: ToastOptions = {

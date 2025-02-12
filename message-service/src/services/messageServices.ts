@@ -219,16 +219,18 @@ export default class MessageServices implements IMessageServices {
     }
   }
 
-  async getConvoList(userId: string) : Promise<{
-    convoId: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    profilePicUrl: string;
-    timestamp: Date;
-    lastMessage: string;
-    unreadCount: number;
-  }[]> {
+  async getConvoList(userId: string): Promise<
+    {
+      convoId: string;
+      username: string;
+      firstName: string;
+      lastName: string;
+      profilePicUrl: string;
+      timestamp: Date;
+      lastMessage: string;
+      unreadCount: number;
+    }[]
+  > {
     try {
       const convoListData = await this.messageRepository.getConvoList(userId);
 
@@ -250,12 +252,12 @@ export default class MessageServices implements IMessageServices {
               ).length;
 
               return {
-                convoId: _id.toString(), 
-                username: String(username), 
+                convoId: _id.toString(),
+                username: String(username),
                 firstName: String(firstName),
                 lastName: String(lastName),
                 profilePicUrl: String(profilePicUrl),
-                timestamp: new Date(updatedAt), 
+                timestamp: new Date(updatedAt),
                 lastMessage,
                 unreadCount,
               };

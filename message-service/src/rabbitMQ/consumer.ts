@@ -31,7 +31,7 @@ const consumeMessages = async (channel: Channel, queue: string) => {
             channel
           );
         } catch (error: any) {
-          throw new Error(error.message)
+          throw new Error(error.message);
         }
 
         channel.ack(message);

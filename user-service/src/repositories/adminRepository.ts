@@ -43,7 +43,7 @@ export default class AdminRepository implements IAdminRepository {
 
   async dashboardCardData(): Promise<number[]> {
     try {
-      const totalUsers = await userCollection.countDocuments(); 
+      const totalUsers = await userCollection.countDocuments();
       const totalVerifiedAccounts = await userCollection.countDocuments({
         "accountType.hasWeNetTick": true,
       });
@@ -113,13 +113,12 @@ export default class AdminRepository implements IAdminRepository {
 
   async getTickRequestsData(skip: number, limit: number) {
     try {
-
       const response = await wenetTickRequestCollection
-      .find()
-      .skip(skip)
-      .limit(limit)
-      .populate("userId");
-      return response
+        .find()
+        .skip(skip)
+        .limit(limit)
+        .populate("userId");
+      return response;
     } catch (error: any) {
       throw new Error(error.message);
     }

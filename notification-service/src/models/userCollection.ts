@@ -8,7 +8,7 @@ interface IUser extends Document {
   password: string;
   profilePicUrl: string;
   JWT?: string;
-  notifications: Types.ObjectId[]
+  notifications: Types.ObjectId[];
 }
 
 const UserSchema = new Schema<IUser>(
@@ -17,7 +17,7 @@ const UserSchema = new Schema<IUser>(
     firstName: { type: String, trim: true, required: true },
     lastName: { type: String, trim: true, required: true },
     profilePicUrl: { type: String, trim: true },
-    notifications: [{ type: Types.ObjectId, ref: "notifications"  }]
+    notifications: [{ type: Types.ObjectId, ref: "notifications" }],
   },
   { timestamps: true }
 );

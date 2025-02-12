@@ -13,7 +13,9 @@ export function verifyUser(req: any, res: Response, next: NextFunction) {
 
   const secret = process.env.JWT_SECRET || "";
   if (!secret) {
-    res.status(StatusCode.INTERNAL_SERVER_ERROR).json(MESSAGES.ERROR.JWT_SECRET_NOT_FOUND);
+    res
+      .status(StatusCode.INTERNAL_SERVER_ERROR)
+      .json(MESSAGES.ERROR.JWT_SECRET_NOT_FOUND);
     return;
   }
 

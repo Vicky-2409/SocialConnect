@@ -1,14 +1,14 @@
-export const RABBITMQ_URL = "amqp://rabbitmq-service:5672"
+export const RABBITMQ_URL = "amqp://rabbitmq-service:5672";
 
 export const SocketEventEnum = Object.freeze({
-    CONNECTED_EVENT: "connected",
-  
-    DISCONNECT_EVENT: "disconnect",
-  
-    FOLLOW_EVENT : "followed",
+  CONNECTED_EVENT: "connected",
 
-    SOCKET_ERROR_EVENT: "socketError",
-  });
+  DISCONNECT_EVENT: "disconnect",
+
+  FOLLOW_EVENT: "followed",
+
+  SOCKET_ERROR_EVENT: "socketError",
+});
 
 export const MongoDB = {
   SUCCESS: "MongoDB connected",

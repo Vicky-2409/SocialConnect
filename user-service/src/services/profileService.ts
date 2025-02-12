@@ -37,8 +37,6 @@ export default class ProfileService implements IProfileService {
 
   async uploadImage(imageFile: unknown, imageType: string): Promise<string> {
     try {
-
-      
       return await this.profileRepository.uploadImage(imageFile, imageType);
     } catch (error: any) {
       throw new Error(error.message);
@@ -65,7 +63,6 @@ export default class ProfileService implements IProfileService {
 
       if (isFollowing) {
         try {
-
           await this.profileRepository.sendNotificationToMQ(
             userToFollow,
             currentUserId,
@@ -74,8 +71,6 @@ export default class ProfileService implements IProfileService {
             "users",
             currentUserId
           );
-          
-
         } catch (error: any) {
           console.log(error.message);
         }

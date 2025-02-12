@@ -82,7 +82,7 @@ export interface IUserController {
   blockUser(req: Request, res: Response, next: NextFunction): Promise<void>;
 }
 
-export interface  IUserService {
+export interface IUserService {
   addUser(userData: IUser): Promise<IUser>;
   findUser(userData: IUser): Promise<IUser>;
   addUserData(userData: IUser): Promise<IUser>;

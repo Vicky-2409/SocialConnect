@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { formatDate } from "@/utils/formatString";
 import adsService from "@/utils/apiCalls/admin/adsService";
@@ -39,7 +39,7 @@ export default function AdsManagementTable() {
           rowsPerPage
         );
         console.log(responseFormat);
-        
+
         setAdsData(responseFormat);
         setDocumentCount(count);
       } catch (error: any) {

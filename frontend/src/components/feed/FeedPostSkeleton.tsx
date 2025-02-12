@@ -66,6 +66,4 @@ const FeedPostSkeleton: React.FC<FeedPostSkeletonProps> = ({
   );
 };
 
-
-
 export default FeedPostSkeleton;

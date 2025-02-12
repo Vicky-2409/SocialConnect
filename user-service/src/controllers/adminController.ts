@@ -30,7 +30,7 @@ export default class AdminController implements IAdminController {
       logger.info("Admin logged in successfully", { username });
       res.status(StatusCode.OK).send(ResponseMsg.ADMIN_LOGGED_IN);
     } catch (error: any) {
-      logger.error("Error during admin login", { error: error.message }); 
+      logger.error("Error during admin login", { error: error.message });
       next(error);
     }
   }
@@ -60,8 +60,12 @@ export default class AdminController implements IAdminController {
       logger.info("Fetching dashboard card data");
       const [totalUsers, totalVerifiedAccounts] =
         await this.adminService.dashboardCardData();
-        logger.info("Dashboard card data fetched successfully",totalUsers, totalVerifiedAccounts);
-      res.status(StatusCode.OK  ).send([totalUsers, totalVerifiedAccounts]);
+      logger.info(
+        "Dashboard card data fetched successfully",
+        totalUsers,
+        totalVerifiedAccounts
+      );
+      res.status(StatusCode.OK).send([totalUsers, totalVerifiedAccounts]);
     } catch (error: any) {
       logger.error("Error fetching dashboard card data", {
         error: error.message,

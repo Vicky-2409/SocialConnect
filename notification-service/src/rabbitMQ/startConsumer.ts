@@ -1,7 +1,7 @@
 import amqp from "amqplib";
 import consumeMessages from "./consumer";
 import { MQExchangeName, notificationServiceConsumers } from "./config";
-import { RABBITMQ_URL } from "../utils/constants"; 
+import { RABBITMQ_URL } from "../utils/constants";
 
 export default async () => {
   try {
@@ -31,7 +31,7 @@ export default async () => {
 
     consumers.forEach(async ({ queueName }) => {
       await consumeMessages(channel, queueName);
-      console.log(`Started consuming messages in ${queueName} queue` )
+      console.log(`Started consuming messages in ${queueName} queue`);
     });
   } catch (error) {
     console.error("Error setting up consumer:", error);

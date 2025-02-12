@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import LoginWithGoogle from "./LoginWithGoogle";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Bounce,  ToastOptions, toast } from "react-toastify";
+import { Bounce, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { loginUser } from "@/redux/userSlice";

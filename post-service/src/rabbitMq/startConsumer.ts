@@ -31,7 +31,7 @@ export default async () => {
 
     consumers.forEach(async ({ queueName }) => {
       await consumeMessages(channel, queueName);
-      console.log(`Started consuming messages in ${queueName} queue` )
+      console.log(`Started consuming messages in ${queueName} queue`);
     });
   } catch (error) {
     console.error("Error setting up consumer:", error);

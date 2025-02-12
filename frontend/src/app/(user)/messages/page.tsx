@@ -13,7 +13,7 @@ export default async function MessagesPage() {
     currUser = userData;
   } catch (error: any) {
     console.log(error);
-    
+
     return (
       <div className="flex items-center justify-center h-screen bg-gray-50">
         <div className="p-4 text-gray-600">

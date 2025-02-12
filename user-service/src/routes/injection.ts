@@ -25,7 +25,10 @@ const adminRepository: IAdminRepository = new AdminRepository();
 
 const userService: IUserService = new UserService(userRepository);
 const profileService: IProfileService = new ProfileService(profileRepository);
-const adminService: IAdminService = new AdminService(adminRepository,userRepository);
+const adminService: IAdminService = new AdminService(
+  adminRepository,
+  userRepository
+);
 
 const userController: IUserController = new UserController(
   userService,

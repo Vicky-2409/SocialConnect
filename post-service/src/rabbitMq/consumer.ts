@@ -2,7 +2,6 @@ import { Channel, ConsumeMessage } from "amqplib";
 import { MessageHandler } from "./messageHandler";
 
 const consumeMessages = async (channel: Channel, queue: string) => {
-
   const onMessage = async (message: ConsumeMessage | null) => {
     if (message !== null) {
       console.log("Message received:", message.content.toString());
@@ -30,7 +29,7 @@ const consumeMessages = async (channel: Channel, queue: string) => {
             channel
           );
         } catch (error: any) {
-          throw new Error(error.message)
+          throw new Error(error.message);
         }
 
         channel.ack(message);

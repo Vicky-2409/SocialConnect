@@ -1,6 +1,6 @@
-import {Types} from "mongoose";
+import { Types } from "mongoose";
 import { IUser } from "../models/userCollection";
-import {IUserRepository} from "../repositories/userRepository";
+import { IUserRepository } from "../repositories/userRepository";
 
 export interface IUserService {
   addUser(userData: IUser): Promise<string>; // Add a new user
@@ -8,12 +8,12 @@ export interface IUserService {
   updateUser(userData: IUser): Promise<string>; // Update user data
 }
 
-export default class UserService implements IUserService{
-  private userRepository: IUserRepository
-  constructor(userRepository: IUserRepository){
-    this.userRepository= userRepository
+export default class UserService implements IUserService {
+  private userRepository: IUserRepository;
+  constructor(userRepository: IUserRepository) {
+    this.userRepository = userRepository;
   }
-  async addUser (userData: IUser): Promise<string> {
+  async addUser(userData: IUser): Promise<string> {
     try {
       return await this.userRepository.addUser(userData);
     } catch (error: any) {
@@ -35,5 +35,3 @@ export default class UserService implements IUserService{
     }
   }
 }
-
-

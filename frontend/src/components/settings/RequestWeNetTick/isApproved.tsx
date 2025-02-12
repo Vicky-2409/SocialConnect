@@ -14,8 +14,8 @@ function isApproved() {
       </div>
       <div>
         <h1 className="text-white font-semibold">
-          Yay! Your request was accepted and you have approved with a WeNet-Tick
-          !
+          Yay! Your request was accepted and you have approved with a
+          Verified-Tick !
         </h1>
       </div>
     </div>

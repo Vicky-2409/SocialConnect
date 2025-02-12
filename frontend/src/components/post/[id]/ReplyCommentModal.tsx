@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
-import { Bounce, ToastOptions, toast } from 'react-toastify';
-import postService from '@/utils/apiCalls/postService';
+import React, { useState } from "react";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { Bounce, ToastOptions, toast } from "react-toastify";
+import postService from "@/utils/apiCalls/postService";
 
 const toastOptions: ToastOptions = {
   position: "top-center",
@@ -28,12 +28,12 @@ const ReplyCommentModal: React.FC<ReplyCommentModalProps> = ({
   postId,
   parentCommentId,
 }) => {
-  const [replyText, setReplyText] = useState('');
+  const [replyText, setReplyText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitReply = async () => {
     if (!replyText.trim()) {
-      toast.error('Reply cannot be empty', toastOptions);
+      toast.error("Reply cannot be empty", toastOptions);
       return;
     }
 
@@ -43,25 +43,25 @@ const ReplyCommentModal: React.FC<ReplyCommentModalProps> = ({
         postService.createReply({
           postId,
           parentCommentId,
-          content: replyText
+          content: replyText,
         }),
         {
-          pending: 'Submitting reply...',
-          success: 'Reply submitted successfully',
-          error: 'Failed to submit reply'
+          pending: "Submitting reply...",
+          success: "Reply submitted successfully",
+          error: "Failed to submit reply",
         },
         toastOptions
       );
 
       // Reset form and close modal
-      setReplyText('');
+      setReplyText("");
       onClose();
       window.location.reload(); // Optional: refresh to show new comment
     } catch (error: any) {
       console.error(error);
       const errorMessage = error?.response?.data?.length
         ? error.response.data
-        : 'Internal server error';
+        : "Internal server error";
       toast.error(errorMessage, toastOptions);
     } finally {
       setIsSubmitting(false);
@@ -92,7 +92,7 @@ const ReplyCommentModal: React.FC<ReplyCommentModalProps> = ({
             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
             disabled={isSubmitting || !replyText.trim()}
           >
-            {isSubmitting ? 'Submitting...' : 'Submit Reply'}
+            {isSubmitting ? "Submitting..." : "Submit Reply"}
           </button>
         </div>
       </DialogContent>

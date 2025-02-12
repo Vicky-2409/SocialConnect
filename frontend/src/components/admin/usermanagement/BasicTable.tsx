@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { Bounce,  ToastOptions, toast } from "react-toastify";
+import { Bounce, ToastOptions, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ChevronLeft, ChevronRight, Users2 } from "lucide-react";
 import userService from "@/utils/apiCalls/admin/userService";
@@ -95,7 +95,7 @@ export default function AdminUserManagementTable() {
   React.useEffect(() => {
     (async function grabData() {
       try {
-        let data: any = await userService.getUsersData()
+        let data: any = await userService.getUsersData();
         const users = data.map((user: any) =>
           createData(
             user.username,
@@ -124,9 +124,7 @@ export default function AdminUserManagementTable() {
     isRestricted: boolean
   ) => {
     try {
-
-
-      const response = await userService.blockUser(username, !isRestricted)
+      const response = await userService.blockUser(username, !isRestricted);
       if (response.data.success) {
         const updatedRows = rows.map((row) =>
           row.username === username

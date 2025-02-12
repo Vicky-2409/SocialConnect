@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {  toast, Bounce, ToastOptions } from "react-toastify";
+import { toast, Bounce, ToastOptions } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { verifyUser } from "@/redux/userSlice";
 import { motion } from "framer-motion";

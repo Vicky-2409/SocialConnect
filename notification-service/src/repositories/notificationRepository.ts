@@ -5,7 +5,6 @@ import notificationCollection, {
 import userCollection from "../models/userCollection";
 import { MESSAGES } from "../utils/constants";
 
-
 export interface INotificationRepository {
   addNotification(notificationData: INotification): Promise<INotification>;
 
@@ -19,23 +18,23 @@ export interface INotificationRepository {
   markAsRead(userId: string): Promise<void>;
 }
 
-
 export default class NotificationRepository implements INotificationRepository {
-  async addNotification (
+  async addNotification(
     notificationData: INotification
   ): Promise<INotification> {
     try {
-      const notification = await notificationCollection.create(notificationData)
+      const notification = await notificationCollection.create(
+        notificationData
+      );
       return await notification.populate([
         { path: "doneByUser" },
         { path: "entityId" },
       ]);
-      
     } catch (error: any) {
-      throw new Error(MESSAGES.NOTIFICATION_ERROR); 
+      throw new Error(MESSAGES.NOTIFICATION_ERROR);
     }
   }
-  async addNotificationToUser (
+  async addNotificationToUser(
     userId: string | Types.ObjectId,
     notificationId: string | Types.ObjectId
   ): Promise<string> {
@@ -63,12 +62,6 @@ export default class NotificationRepository implements INotificationRepository {
     }
   }
 
-
-
-
-  
-
-
   async markAsRead(userId: string) {
     try {
       await notificationCollection.updateMany(
@@ -79,7 +72,4 @@ export default class NotificationRepository implements INotificationRepository {
       throw new Error(MESSAGES.NOTIFICATION_ERROR);
     }
   }
-
-
-};
-
+}

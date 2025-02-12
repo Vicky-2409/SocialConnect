@@ -32,8 +32,8 @@ function SingleComment({ userId }: props) {
               key={comment._id}
               commentData={seggregateData(comment)}
               currentUserId={userId}
-              postId={postData._id}  
-              isReply={false} 
+              postId={postData._id}
+              isReply={false}
             />
           ))
         ) : (
@@ -49,7 +49,8 @@ function SingleComment({ userId }: props) {
 export default SingleComment;
 
 function seggregateData(singleCommentData: any): IComment {
-  const { _id, userId, comment, updatedAt, createdAt, replies } = singleCommentData;
+  const { _id, userId, comment, updatedAt, createdAt, replies } =
+    singleCommentData;
   const { profilePicUrl, username } = userId;
 
   return {
@@ -60,6 +61,6 @@ function seggregateData(singleCommentData: any): IComment {
     comment,
     updatedAt,
     createdAt,
-    replies
+    replies,
   };
 }

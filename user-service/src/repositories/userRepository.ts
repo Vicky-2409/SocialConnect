@@ -356,30 +356,16 @@ export default class UserRepository implements IUserRepository {
     }
   }
 
-  // async requestWenetTick(
-  //   userId: string,
-  //   imageUrl: string,
-  //   description: string
-  // ) {
-  //   try {
-  //     return await wenetTickRequestCollection.create({
-  //       userId: new Types.ObjectId(userId),
-  //       imageUrl,
-  //       description,
-  //     });
-  //   } catch (error: any) {
-  //     throw new Error(error.message);
-  //   }
-  // }
-
   async requestWenetTick(
     userId: string,
     imageUrl: string,
     description: string
   ) {
     try {
-      const verifiedTickData = await wenetTickRequestCollection.findOne({ userId });
-  
+      const verifiedTickData = await wenetTickRequestCollection.findOne({
+        userId,
+      });
+
       if (verifiedTickData) {
         return await wenetTickRequestCollection.findOneAndUpdate(
           { userId },
@@ -387,19 +373,18 @@ export default class UserRepository implements IUserRepository {
           { new: true, returnDocument: "after" } // Ensures the updated document is returned
         );
       }
-  
+
       return await wenetTickRequestCollection.create({
         userId: new Types.ObjectId(userId),
         imageUrl,
         description,
         status: "pending",
       });
-  
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
-  
+
   async getTickRequestData(userId: string) {
     try {
       return await wenetTickRequestCollection.findOne({
@@ -445,40 +430,6 @@ export default class UserRepository implements IUserRepository {
     }
   }
 
-  // restrictUser: async (userId: string): Promise<string> => {
-  //   try {
-  //     // Find the user by ID
-  //     const user = await userCollection.findOne({ _id: userId });
-
-  //     if (!user) {
-  //       throw new Error("User not found");
-  //     }
-
-  //     // Set the restriction for 7 days
-  //     const restrictedUntil = new Date();
-  //     restrictedUntil.setDate(restrictedUntil.getDate() + 7);
-
-  //     // Update the user's restriction fields
-  //     const updateResult = await userCollection.updateOne(
-  //       { _id: userId },
-  //       {
-  //         $set: {
-  //           restrictedFromPostingUntil: restrictedUntil,
-  //         },
-  //       }
-  //     );
-
-  //     if (updateResult.modifiedCount === 0) {
-  //       throw new Error("Failed to update user restriction status");
-  //     }
-
-  //     return "User successfully restricted from posting.";
-  //   } catch (error: any) {
-  //     console.error("Error:", error); // Log error details
-  //     throw new Error(error.message);
-  //   }
-  // }
-
   async restrictUser(userId: string): Promise<IUser> {
     try {
       // Find the user by ID
@@ -519,43 +470,6 @@ export default class UserRepository implements IUserRepository {
       throw new Error(error.message);
     }
   }
-
-  // blockUser: async (userId: string): Promise<IUser> => {
-  //   try {
-  //     // Find the user by ID
-  //     const user = await userCollection.findOne({ _id: userId });
-
-  //     if (!user) {
-  //       throw new Error("User not found");
-  //     }
-
-  //     // Update the user's restriction fields
-  //     const updateResult = await userCollection.updateOne(
-  //       { _id: userId },
-  //       {
-  //         $set: {
-  //           isRestricted: true,
-  //         },
-  //       }
-  //     );
-
-  //     if (updateResult.modifiedCount === 0) {
-  //       throw new Error("Failed to update user restriction status");
-  //     }
-
-  //     // Fetch the updated document
-  //     const updatedUser = await userCollection.findOne({ _id: userId });
-
-  //     if (!updatedUser) {
-  //       throw new Error("Failed to retrieve updated user");
-  //     }
-
-  //     return updatedUser;
-  //   } catch (error: any) {
-  //     console.error("Error:", error); // Log error details
-  //     throw new Error(error.message);
-  //   }
-  // }
 
   async blockUser(username: string): Promise<IUser> {
     try {

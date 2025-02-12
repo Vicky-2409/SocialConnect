@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { formatDate } from "@/utils/formatString";
 import postService from "@/utils/apiCalls/postService";
@@ -45,8 +45,8 @@ export default function ReportManagementTable() {
       try {
         let [reports, documentCount] =
           await postService.getReportManagementData(currentPage, rowsPerPage);
-          console.log(reports);
-          
+        console.log(reports);
+
         reports = reports.map((report: any) => ({
           _id: report._id,
           userId: report.entityId.userId,

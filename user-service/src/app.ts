@@ -18,7 +18,7 @@ const app = express();
 const httpServer = http.createServer(app);
 
 // CORS configuration
-const frontEndUrl = process.env.FRONTEND_URL ;
+const frontEndUrl = process.env.FRONTEND_URL;
 const corsOptions = {
   origin: frontEndUrl,
   credentials: true,
@@ -30,8 +30,6 @@ const io = new Server(httpServer, {
 });
 
 app.set("io", io);
-
-
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions)); // Handle preflight requests

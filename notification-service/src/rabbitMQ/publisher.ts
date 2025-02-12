@@ -1,5 +1,5 @@
 import amqp, { Channel, Connection } from "amqplib";
-import {  MQExchangeName, notificationServiceProducers } from "./config";
+import { MQExchangeName, notificationServiceProducers } from "./config";
 import { RABBITMQ_URL } from "../utils/constants";
 import { INotification } from "../models/notificationCollection";
 
@@ -29,14 +29,14 @@ export const publisher = {
   },
 
   publishNotificationToMessageService: async function (
-    notificationData : INotification,
+    notificationData: INotification,
     action: string
   ) {
     try {
       const [channel, connection] = await this.connectRabbitMQ();
 
       const exchangeName = MQExchangeName;
-      const routingKey = notificationServiceProducers[0] ; // Specific routing key
+      const routingKey = notificationServiceProducers[0]; // Specific routing key
       await channel.assertExchange(exchangeName, "direct", { durable: true });
 
       const messageProperties = {

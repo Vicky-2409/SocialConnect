@@ -1,4 +1,4 @@
-  import { Server, Socket } from "socket.io";
+import { Server, Socket } from "socket.io";
 import dotenv from "dotenv";
 dotenv.config();
 import jwt from "jsonwebtoken";
@@ -27,7 +27,7 @@ const initializeSocketIO = (io: Server) => {
           return next(new Error("Authentication error"));
         }
 
-        socket.data.user = decoded;  // Store the user data on the socket
+        socket.data.user = decoded; // Store the user data on the socket
 
         try {
           const user = await userCollection.findById(decoded?.userData?._id);
@@ -35,7 +35,7 @@ const initializeSocketIO = (io: Server) => {
             return next(new Error("User not found"));
           }
 
-          socket.user = user;  // Attach user to socket
+          socket.user = user; // Attach user to socket
           userSockets[user._id.toString()] = socket; // Store the socket per user
           next();
         } catch (err) {
@@ -49,22 +49,21 @@ const initializeSocketIO = (io: Server) => {
 
   io.on("connection", (socket: Socket) => {
     console.log("A user connected: " + socket.user._id);
-    const userId =  socket.user._id
-    console.log('Emitting connected event with userId:', userId);
+    const userId = socket.user._id;
+    console.log("Emitting connected event with userId:", userId);
 
-    emitNotification(userId.toString(),"user-connected",{userId})
+    emitNotification(userId.toString(), "user-connected", { userId });
 
+    // Emit both standard and custom events
+    socket.emit("user-connected", {
+      userId: userId.toString(), // Convert ObjectId to string
+    });
+    socket.emit("connected", { userId }); // Custom event
 
-  // Emit both standard and custom events
-  socket.emit("user-connected", { 
-    userId: userId.toString() // Convert ObjectId to string
-  });
-  socket.emit("connected", { userId });  // Custom event
-
-  // Listen for test event
-  socket.on("test-connection", (data) => {
-    console.log('Test connection received:', data);
-  });
+    // Listen for test event
+    socket.on("test-connection", (data) => {
+      console.log("Test connection received:", data);
+    });
 
     // Handle socket events after authentication
     socket.on("message", (data) => {
@@ -87,9 +86,7 @@ const initializeSocketIO = (io: Server) => {
 const emitNotification = (userId: string, event: string, payload: any) => {
   const userSocket = userSockets[userId];
   if (userSocket) {
-    userSocket.emit(event, payload);  // Emit the notification to the specific user
-    
-
+    userSocket.emit(event, payload); // Emit the notification to the specific user
   }
 };
 
@@ -111,5 +108,3 @@ const handleFollow = (followerId: string, followedData: IUser) => {
 };
 
 export { initializeSocketIO, emitNotification, handlePostLike, handleFollow };
-
-

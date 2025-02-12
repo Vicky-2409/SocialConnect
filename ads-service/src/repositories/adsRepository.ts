@@ -146,7 +146,6 @@ export default class AdsRepository implements IAdsRepository {
       }
       logger.info("Promoted posts fetched successfully");
 
-
       return postData;
     } catch (error: any) {
       logger.error(`Error fetching promoted posts: ${error.message}`);

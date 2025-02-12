@@ -51,7 +51,7 @@ export interface IPost {
   isLiked: boolean;
   isBookmarked: boolean;
   fromAdsService?: boolean;
-  isDeleted?:boolean;
+  isDeleted?: boolean;
 }
 
 interface LikedUser {
@@ -74,7 +74,7 @@ export interface IComment {
   username: string;
   profilePicUrl: string;
   comment: string;
-  replies:IComment[]
+  replies: IComment[];
   likedBy?: string[];
   updatedAt: string;
   createdAt: string;

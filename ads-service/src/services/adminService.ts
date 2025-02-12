@@ -20,10 +20,6 @@ export default class AdminRepository implements IAdminService {
   }
   async getAdsManagementData(pageNo: number, rowsPerPage: number) {
     try {
-      // const skip = rowsPerPage * (pageNo - 1);
-      // const limit = rowsPerPage;
-      // logger.info(`Fetching ads management data with skip: ${skip}, limit: ${limit}`);
-
       const skip = rowsPerPage * (pageNo - 1);
       const limit = rowsPerPage;
 

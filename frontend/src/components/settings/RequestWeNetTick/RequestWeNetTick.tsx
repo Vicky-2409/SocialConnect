@@ -59,7 +59,9 @@ function RequestWeNetTick() {
         >
           {status === "approved" && <IsApprovedComponent />}
           {status === "pending" && <IsPendingComponent />}
-          {status === "rejected" && <IsRejectedComponent onClick={setModelChange}/>}
+          {status === "rejected" && (
+            <IsRejectedComponent onClick={setModelChange} />
+          )}
         </motion.div>
       ) : (
         <motion.div

@@ -7,7 +7,7 @@ interface IMessage extends Document {
   message: string;
   isAttachment: boolean;
   attachmentUrl: string;
-  isDeleted:boolean;
+  isDeleted: boolean;
 }
 
 const MessageSchema = new Schema<IMessage>(
@@ -18,12 +18,16 @@ const MessageSchema = new Schema<IMessage>(
       required: true,
     },
     sender: { type: Schema.Types.ObjectId, ref: "users", required: true },
-    message: { type: String, required: function (this: IMessage) {
+    message: {
+      type: String,
+      required: function (this: IMessage) {
         return !this.isAttachment; // Required only if `isAttachment` is false
-      }, default: ''},
+      },
+      default: "",
+    },
     isAttachment: { type: Boolean, required: true, default: false },
     attachmentUrl: { type: String },
-    isDeleted:{ type: Boolean, required: true, default: false }
+    isDeleted: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
 );

@@ -1,92 +1,3 @@
-// import { Request, Response, NextFunction } from "express";
-// import jwt from "jsonwebtoken";
-// import { EnvErrorMsg, JwtErrorMsg, Role } from "../utils/constants";
-// import { IUser } from "../models/User";
-// import userCollection from "../models/User";
-
-// interface UserData {
-//   id: string;
-//   username: string;
-//   role: string;
-// }
-
-// interface CustomRequest extends Request {
-//   user?: UserData;
-// }
-
-// export async function  verifyUser(
-//   req: CustomRequest,
-//   res: Response,
-//   next: NextFunction
-// ): Promise<void> {
-//   const userToken = req.cookies?.token;
-
-//   if (!userToken) {
-//     res.status(401).send(JwtErrorMsg.JWT_NOT_FOUND);
-//     return; // Ensure no further execution.
-//   }
-
-//   const secret = process.env.JWT_SECRET || "";
-//   if (!secret) {
-//     res.status(500).json(EnvErrorMsg.JWT_NOT_FOUND);
-//     return; // Ensure no further execution.
-//   }
-
-//   try {
-//     const decoded = jwt.verify(userToken, secret) as {
-//       userData: UserData;
-//       role: string;
-//     };
-//     req.user = decoded.userData;
-
-//     if (!decoded?.role || decoded.role !== Role.User) {
-//       res.status(401).send(JwtErrorMsg.INVALID_JWT);
-//       return; // Ensure no further execution.
-//     }
-
-//     const user: IUser | null = await userCollection.findOne({ username: decoded.userData?.username });
-
-//     if (!user || user.isRestricted) {
-//       const message = !user
-//         ? "User not found"
-//         : "User is restricted and cannot perform this action";
-//       res.status(401).json({ message });
-//       return; // Stop further execution.
-//     }
-
-//     next(); // Pass control to the next middleware.
-//   } catch (err) {
-//     res.status(401).send(JwtErrorMsg.INVALID_JWT);
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { EnvErrorMsg, JwtErrorMsg, Role } from "../utils/constants";
@@ -95,7 +6,7 @@ import userCollection from "../models/User";
 
 interface UserData {
   id: string;
-  username: string; 
+  username: string;
   role: string;
 }
 

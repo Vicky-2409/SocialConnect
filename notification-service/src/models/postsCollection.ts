@@ -10,7 +10,7 @@ interface IPost extends Document {
 
 const PostSchema = new Schema(
   {
-    _id :  { type: Types.ObjectId},
+    _id: { type: Types.ObjectId },
     userId: { type: Types.ObjectId, ref: "users" },
     caption: { type: String },
     imageUrl: { type: String, required: true },
@@ -21,4 +21,4 @@ const PostSchema = new Schema(
 
 export default model<IPost>("posts", PostSchema);
 
-export type {  IPost}
+export type { IPost };

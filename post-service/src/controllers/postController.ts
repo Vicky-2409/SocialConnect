@@ -138,7 +138,7 @@ export default class PostController implements IPostController {
         updatedAt,
         createdAt,
         bookmarkedBy,
-        isDeleted
+        isDeleted,
       } = await this.postsServices.getSinglePost(postId);
 
       const { username, firstName, lastName, profilePicUrl } =
@@ -168,7 +168,7 @@ export default class PostController implements IPostController {
         updatedAt,
         createdAt,
         isBookmarked,
-        isDeleted
+        isDeleted,
       };
 
       logger.info(`Post ${postId} retrieved successfully`);

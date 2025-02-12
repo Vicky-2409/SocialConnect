@@ -25,9 +25,8 @@ export default class AdminController implements IAdminController {
       // const { pageNo, rowsPerPage } = req.query;
 
       const pageNo = Number(req.query.pageNo);
-const rowsPerPage = Number(req.query.rowsPerPage);
+      const rowsPerPage = Number(req.query.rowsPerPage);
 
-      
       logger.info(
         `Fetching Ads management data - pageNo: ${pageNo}, rowsPerPage: ${rowsPerPage}`
       );

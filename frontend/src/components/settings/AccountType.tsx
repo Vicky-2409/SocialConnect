@@ -112,7 +112,6 @@ function AccountType({ currUser }: { currUser: IUser }) {
           </button>
         </div>
 
-
         {/* Professional Account Additional Section */}
         {isProfessional && (
           <div className="bg-gray-50 p-6 text-center">

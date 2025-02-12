@@ -5,7 +5,7 @@ export interface IPostRepository {
   addPost(postData: IPost): Promise<IPost>;
 }
 
-export default class PostRepository implements IPostRepository{
+export default class PostRepository implements IPostRepository {
   async addPost(postData: IPost) {
     try {
       return await postsCollection.create(postData);
@@ -13,7 +13,4 @@ export default class PostRepository implements IPostRepository{
       throw new Error(MESSAGES.POST_CREATION_ERROR);
     }
   }
-};
-
-
-
+}
