@@ -1,11 +1,12 @@
-import { Schema, Types, model } from "mongoose";
+import { Document, Schema, Types, model } from "mongoose";
 
 interface ITransaction extends Document {
   _id: Types.ObjectId;
   userId: Types.ObjectId;
-  PayUOrdersId: Types.ObjectId;
+  PayUOrderId: Types.ObjectId;
   PayUTransactionId: string;
   transactionStatus: "success" | "failed";
+  transactionAmount?: string
 }
 
 const TransactionSchema = new Schema(

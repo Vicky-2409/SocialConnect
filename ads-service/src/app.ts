@@ -9,7 +9,11 @@ import { errorHandler } from "./middlewares/errorHandler";
 import startConsumer from "./rabbitMQ/startConsumer";
 import dotenv from "dotenv";
 import connectDB from "./config/database";
-dotenv.config();
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+} else {
+  dotenv.config({ path: '.env.development' });
+}
 connectDB();
 
 const app = express();

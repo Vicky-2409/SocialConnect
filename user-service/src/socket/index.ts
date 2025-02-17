@@ -1,8 +1,16 @@
 import { Server, Socket } from "socket.io";
-import dotenv from "dotenv";
-dotenv.config();
+
 import jwt from "jsonwebtoken";
 import userCollection, { IUser } from "../models/User";
+import dotenv from "dotenv";
+
+if (process.env.NODE_ENV === "production") {
+  dotenv.config({ path: ".env.production" });
+} else {
+  dotenv.config({ path: ".env.development" });
+}
+
+console.log(process.env.JWT_SECRET); // Debugging step to ensure the variable is loaded
 import { SocketEventEnum } from "../utils/constants";
 declare module "socket.io" {
   interface Socket {

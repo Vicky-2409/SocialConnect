@@ -8,7 +8,7 @@ const consumeMessages = async (channel: Channel, queue: string) => {
       try {
         const { correlationId, replyTo } = message.properties;
         const operation = message.properties.headers?.function;
-        console.log(message.properties);
+
 
         if (!operation) {
           console.error("Message is missing required properties.");

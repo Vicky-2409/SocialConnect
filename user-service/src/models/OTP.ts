@@ -3,6 +3,7 @@ import { Document, Schema, model } from "mongoose";
 interface IOTP extends Document {
   _id: Schema.Types.ObjectId;
   otp: string;
+  updatedAt: Date;
 }
 
 const OTPSchema = new Schema<IOTP>(

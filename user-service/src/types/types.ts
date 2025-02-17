@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { IUser } from "../models/User";
 import { Types } from "mongoose";
-import { IWenetickRequest } from "../models/WenetTickRequest";
+import { IWenetTickRequest } from "../models/WenetTickRequest";
 
 export interface IAdmin {
   _id?: string;
@@ -300,7 +300,8 @@ export interface IAdminService {
   changeTickRequestStatus(
     requestId: string,
     status: "approved" | "rejected",
-    userId: string
+    userId: string,
+    rejectionReason:string
   ): Promise<any>;
 }
 
@@ -321,14 +322,17 @@ export interface IAdminRepository {
 
   companyAccountCount(): Promise<number>;
 
-  getTickRequestsData(skip: number, limit: number): Promise<IWenetickRequest[]>;
+  getTickRequestsData(
+    skip: number,
+    limit: number
+  ): Promise<IWenetTickRequest[]>;
 
   getTickRequestDocumentCount(): Promise<number>;
 
   changeTickRequestStatus(
     requestId: string,
     status: "approved" | "rejected"
-  ): Promise<IWenetickRequest>;
+  ): Promise<IWenetTickRequest>;
 
   giveTickToUser(userId: string): Promise<IUser>;
 }

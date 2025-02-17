@@ -86,7 +86,7 @@ export default class PaymentController implements IPaymentController {
 
     logger.info(`Data being sent to PayU: ${formData.toString()}`);
 
-    console.log("Data being sent to PayU:", formData.toString());
+
 
     try {
       const result = await axios.post(
@@ -98,7 +98,7 @@ export default class PaymentController implements IPaymentController {
           },
         }
       );
-      console.log(result.request.res.responseUrl);
+
       logger.info(`PayU response received: ${result.request.res.responseUrl}`);
 
       res.send(result.request.res.responseUrl);

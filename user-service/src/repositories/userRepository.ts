@@ -4,8 +4,8 @@ import wenetTickRequestCollection from "../models/WenetTickRequest";
 import { OTPHelper } from "../utils/OTPHelper";
 import hash from "../utils/hash";
 import halfwayUser from "../utils/isHalfwayUser";
-import jwt from "jsonwebtoken";
-import { JwtPayload, jwtDecode } from "jwt-decode";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { jwtDecode } from "jwt-decode";
 import dotenv from "dotenv";
 import { IGoogleCredentialRes, IUserRepository } from "../types/types";
 import "core-js/stable/atob";
@@ -34,10 +34,22 @@ import {
   TEMP_PASSWORD,
   UserErrorMsg,
 } from "../utils/constants";
+import { BaseRepository } from "./baseRepository";
 
-dotenv.config();
+if (process.env.NODE_ENV === "production") {
+  dotenv.config({ path: ".env.production" });
+} else {
+  dotenv.config({ path: ".env.development" });
+}
 
-export default class UserRepository implements IUserRepository {
+export default class UserRepository
+  extends BaseRepository<IUser>
+  implements IUserRepository
+{
+  constructor() {
+    super(userCollection);
+  }
+
   async addUser(userData: IUser): Promise<IUser> {
     try {
       userData.password = hash.hashString(userData.password);
@@ -50,8 +62,7 @@ export default class UserRepository implements IUserRepository {
         return await isHalfwayUser.save();
       }
       userData.isRestricted = true;
-      const user = new userCollection(userData);
-      return await user.save();
+      return await this.create(userData);
     } catch (error: any) {
       console.error(error);
       throw new Error(error.message);
@@ -61,16 +72,24 @@ export default class UserRepository implements IUserRepository {
   async addUserData(userData: IUser): Promise<IUser> {
     try {
       const { _id, email, dateOfBirth, gender } = userData;
-      const user = await userCollection.findOne({ _id });
+      const user = await this.findById(String(_id));
       if (!user) throw new Error(UserErrorMsg.NO_USER);
-      user.email = email;
-      user.dateOfBirth = dateOfBirth;
-      user.gender = gender;
 
-      if (user.gender === "male") user.profilePicUrl = DEFAULT_PROFILE_PIC_MALE;
-      else user.profilePicUrl = DEFAULT_PROFILE_PIC_FEMALE;
+      const updateData = {
+        email,
+        dateOfBirth,
+        gender,
+        profilePicUrl:
+          gender === "male"
+            ? DEFAULT_PROFILE_PIC_MALE
+            : DEFAULT_PROFILE_PIC_FEMALE,
+      };
 
-      return await user.save();
+      const updatedUser = await this.update(String(_id), updateData);
+      if (!updatedUser) {
+        throw new Error(UserErrorMsg.UPDATE_FAILED);
+      }
+      return updatedUser;
     } catch (error: any) {
       console.error(error);
       throw new Error(error.message);
@@ -80,15 +99,16 @@ export default class UserRepository implements IUserRepository {
   async sendOTP(email: string): Promise<string> {
     try {
       let otp = OTPHelper.generateOTP();
-      const user = await userCollection.findOne({ email });
+      const user = await this.findOne({ email });
+      if (!user) throw new Error(UserErrorMsg.NO_USER);
 
-      const existingOtp = await OTPCollection.findOne({ _id: user?._id });
+      const existingOtp = await OTPCollection.findOne({ _id: user._id });
       if (existingOtp) {
         existingOtp.otp = hash.hashString(otp);
         await existingOtp.save();
       } else {
         await OTPCollection.insertMany([
-          { _id: user?._id, otp: hash.hashString(otp) },
+          { _id: user._id, otp: hash.hashString(otp) },
         ]);
       }
 
@@ -101,25 +121,27 @@ export default class UserRepository implements IUserRepository {
 
   async verifyOTP(_id: string, otp: string): Promise<string> {
     try {
-      const otpFromDb: any = await OTPCollection.findOne({ _id });
+      const otpFromDb = await OTPCollection.findOne({ _id });
       if (!otpFromDb) throw new Error(GeneralErrorMsg.OTP_ERROR);
 
       const timeNow = new Date().getTime();
-      const otpUpdatedAt = new Date(otpFromDb.updatedAt).getTime();
+      const otpUpdatedAt =
+        otpFromDb && "updatedAt" in otpFromDb
+          ? new Date((otpFromDb as any).updatedAt).getTime()
+          : Date.now();
+
       const isWithinLimit = (timeNow - otpUpdatedAt) / 1000 < OTP_TIME_LIMIT;
       if (!isWithinLimit) throw new Error(GeneralErrorMsg.TIME_LIMIT_EXCEED);
 
       const isVerified = hash.compareHash(otp, otpFromDb.otp);
-      if (isVerified) {
-        const user = await userCollection.findOne({ _id });
-        if (!user) throw new Error(UserErrorMsg.NO_USER);
-        user.isRestricted = false;
-        await user?.save();
+      if (!isVerified) throw new Error(GeneralErrorMsg.INVALID_OTP);
 
-        return ResponseMsg.OTP_VERIFIED;
-      } else {
-        throw new Error(GeneralErrorMsg.INVALID_OTP);
-      }
+      const user = await this.findById(_id);
+      if (!user) throw new Error(UserErrorMsg.NO_USER);
+
+      return await this.update(_id, { isRestricted: false }).then(
+        () => ResponseMsg.OTP_VERIFIED
+      );
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -127,7 +149,7 @@ export default class UserRepository implements IUserRepository {
 
   async verifyLogin(username: string, password: string): Promise<IUser> {
     try {
-      const user = await userCollection.findOne({ username });
+      const user = await this.findOne({ username });
       if (!user) throw new Error(INVALID_CREDENTIALS_MSG);
 
       if (user.isRestricted) throw new Error(GeneralErrorMsg.USER_RESTRICTED);
@@ -143,7 +165,7 @@ export default class UserRepository implements IUserRepository {
 
   async findUser(userData: IUser): Promise<IUser> {
     try {
-      const user = await userCollection.findById(userData._id);
+      const user = await this.findById(String(userData._id));
       if (!user) throw new Error(GeneralErrorMsg.SIGN_UP_AGAIN);
       return user;
     } catch (error: any) {
@@ -290,15 +312,13 @@ export default class UserRepository implements IUserRepository {
     newPassword: string
   ): Promise<string> {
     try {
-      const user = await userCollection.findOne({ _id: userId });
+      const user = await this.findById(userId);
       if (!user) throw new Error(UserErrorMsg.NO_USER);
 
       const passwordMatches = hash.compareHash(currentPassword, user.password);
       if (!passwordMatches) throw new Error(INVALID_CREDENTIALS_MSG);
 
-      user.password = hash.hashString(newPassword);
-      await user.save();
-
+      await this.update(userId, { password: hash.hashString(newPassword) });
       return PASSWORD_CHANGED_MSG;
     } catch (error: any) {
       throw new Error(error.message);
@@ -307,17 +327,16 @@ export default class UserRepository implements IUserRepository {
 
   async forgotPassword(email: string): Promise<string> {
     try {
-      const user = await userCollection.findOne({ email: email });
+      const user = await this.findOne({ email });
       if (!user) throw new Error(EMAIL_NOT_FOUND_MSG);
 
       const newPassword = generateStrongPassword();
-
       await OTPHelper.sendPassword(email, newPassword);
 
-      user.password = hash.hashString(newPassword);
-      await user.save();
-
-      return "New password is send to your email";
+      await this.update(String(user._id), {
+        password: hash.hashString(newPassword),
+      });
+      return "New password is sent to your email";
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -328,29 +347,27 @@ export default class UserRepository implements IUserRepository {
     accountType: "personalAccount" | "celebrity" | "company"
   ): Promise<IUser> {
     try {
-      const user = await userCollection.findOne({ _id: userId });
+      const user = await this.findById(userId);
+      if (!user) throw new Error(UserErrorMsg.NO_USER);
 
-      await wenetTickRequestCollection.deleteOne({ userId: user?._id });
+      await wenetTickRequestCollection.deleteOne({ userId: user._id });
 
-      if (!user) {
-        throw new Error(UserErrorMsg.NO_USER);
+      const accountTypeData =
+        accountType === "personalAccount"
+          ? { isProfessional: false, hasWeNetTick: false }
+          : {
+              isProfessional: true,
+              category: accountType,
+              hasWeNetTick: false,
+            };
+
+      const updatedUser = await this.update(userId, {
+        accountType: accountTypeData,
+      });
+      if (!updatedUser) {
+        throw new Error(UserErrorMsg.UPDATE_FAILED);
       }
-
-      if (accountType === "personalAccount") {
-        user.accountType = {
-          isProfessional: false,
-          hasWeNetTick: false,
-        };
-      } else {
-        user.accountType = {
-          isProfessional: true,
-          category: accountType,
-          hasWeNetTick: false,
-        };
-      }
-      await user.save();
-
-      return user;
+      return updatedUser;
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -432,83 +449,41 @@ export default class UserRepository implements IUserRepository {
 
   async restrictUser(userId: string): Promise<IUser> {
     try {
-      // Find the user by ID
-      const user = await userCollection.findOne({ _id: userId });
+      const user = await this.findById(userId);
+      if (!user) throw new Error(UserErrorMsg.NO_USER);
 
-      if (!user) {
-        throw new Error(UserErrorMsg.NO_USER);
-      }
-
-      // Set the restriction for 7 days
       const restrictedUntil = new Date();
       restrictedUntil.setDate(restrictedUntil.getDate() + 7);
 
-      // Update the user's restriction fields
-      const updateResult = await userCollection.updateOne(
-        { _id: userId },
-        {
-          $set: {
-            restrictedFromPostingUntil: restrictedUntil,
-          },
-        }
-      );
-
-      if (updateResult.modifiedCount === 0) {
-        throw new Error("Failed to update user restriction status");
-      }
-
-      // Fetch the updated document
-      const updatedUser = await userCollection.findOne({ _id: userId });
-
+      const updatedUser = await this.update(userId, {
+        restrictedFromPostingUntil: restrictedUntil,
+      });
       if (!updatedUser) {
-        throw new Error("Failed to retrieve updated user");
+        throw new Error(UserErrorMsg.UPDATE_FAILED);
       }
 
       return updatedUser;
     } catch (error: any) {
-      console.error("Error:", error); // Log error details
+      console.error("Error:", error);
       throw new Error(error.message);
     }
   }
 
   async blockUser(username: string): Promise<IUser> {
     try {
-      // Find the user by username
-      const user = await userCollection.findOne({ username });
-
-      if (!user) {
-        throw new Error("User not found");
-      }
-
-      // Toggle the user's restriction status
-      const updateResult = await userCollection.updateOne(
-        { username },
-        { $set: { isRestricted: !user.isRestricted } } // Toggle isRestricted value
-      );
-
-      if (updateResult.modifiedCount === 0) {
-        throw new Error(
-          "Failed to update user restriction status. The user might already be in the desired state."
-        );
-      }
-
-      // Fetch the updated user document
-      const updatedUser = await userCollection.findOne({ username });
-
+      const user = await this.findOne({ username });
+      if (!user) throw new Error(UserErrorMsg.NO_USER);
+      const updatedUser = await this.update(String(user._id), {
+        isRestricted: !user.isRestricted,
+      });
       if (!updatedUser) {
-        throw new Error(
-          "Failed to retrieve updated user data after restriction"
-        );
+        throw new Error(UserErrorMsg.UPDATE_FAILED);
       }
-
-      // Successfully updated and returned the user
       return updatedUser;
     } catch (error: any) {
-      console.error("Error blocking user:", error.message); // Detailed log for the server
-      // Throw the error with a message for the API response (if needed)
+      console.error("Error blocking user:", error.message);
       throw new Error(
-        error?.message ||
-          "An unexpected error occurred while blocking the user."
+        error.message || "An unexpected error occurred while blocking the user."
       );
     }
   }

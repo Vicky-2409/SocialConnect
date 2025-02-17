@@ -40,8 +40,7 @@ export default class AdsService implements IAdsService {
 
       logger.info("Got order data", { PayUOrderData });
 
-      console.log("Got order id");
-      console.log(PayUOrderData);
+
 
       const userData = await this.userServices.getUserDataByEmail(email);
       if (!userData) throw new Error(MESSAGES.ERRORS.USER_DATA_NOT_FOUND);
@@ -54,8 +53,7 @@ export default class AdsService implements IAdsService {
         status,
         PayUOrderData.amount
       );
-      console.log("Added transaction");
-      console.log(transaction);
+
       if (!transaction)
         throw new Error(MESSAGES.ERRORS.TRANSACTION_DATA_NOT_FOUND);
       logger.info("Transaction added successfully", { transaction });
@@ -68,12 +66,10 @@ export default class AdsService implements IAdsService {
           transaction._id.toString()
         );
         logger.info("WeNetAdsData created", { WeNetAdsData });
-        console.log("created WeNetAdsData");
-        console.log(WeNetAdsData);
+
 
         const postData = await this.adsRepository.addAdDataToPost(postId);
-        console.log("Added ad data to post ");
-        console.log(postData);
+
         logger.info("Added ad data to post", { postData });
 
         try {
@@ -97,7 +93,7 @@ export default class AdsService implements IAdsService {
   async getPosts() {
     try {
       logger.info("Fetching posts data.");
-      return await this.adsRepository.getPosts();
+      return await this.adsRepository.getPromotedPosts();
     } catch (error: any) {
       logger.error(`Error in getPosts: ${error.message}`);
       throw new Error(error.message);

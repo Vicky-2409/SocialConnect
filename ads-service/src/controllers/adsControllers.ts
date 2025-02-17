@@ -23,11 +23,12 @@ export default class AdsController implements IAdsController {
   async addTransaction(req: Request, res: Response, next: NextFunction) {
     try {
       const { PayUOrderId, email, status } = req.body;
+      
       logger.info(
         `Received transaction data - PayUOrderId: ${PayUOrderId}, email: ${email}, status: ${status}`
       );
 
-      console.log({ PayUOrderId, email, status });
+
 
       const transactionId = await this.adsService.addTransaction(
         email,

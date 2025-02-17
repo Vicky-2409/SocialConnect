@@ -1,13 +1,13 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IWenetickRequest extends Document {
+export interface IWenetTickRequest extends Document {
   userId: mongoose.Types.ObjectId;
   imageUrl: string;
   description: string;
   status: "pending" | "approved" | "rejected";
 }
 
-const WenetickRequestSchema: Schema<IWenetickRequest> = new Schema(
+const WenetickRequestSchema: Schema<IWenetTickRequest> = new Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -34,7 +34,7 @@ const WenetickRequestSchema: Schema<IWenetickRequest> = new Schema(
   }
 );
 
-const WenetickRequest = mongoose.model<IWenetickRequest>(
+const WenetickRequest = mongoose.model<IWenetTickRequest>(
   "wenettickrequests",
   WenetickRequestSchema
 );

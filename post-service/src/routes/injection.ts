@@ -15,13 +15,13 @@ import AdminRepository, {
 import UserRepository, {
   IUserRepository,
 } from "../repositories/userRepository";
-import CommentRepository, {
+import  {CommentRepository,
   ICommentRepository,
 } from "../repositories/commentsRepository";
-import PostRepository, {
+import  {PostRepository,
   IPostRepository,
 } from "../repositories/postRepository";
-import ReportsRepository, {
+import  {ReportsRepository,
   IReportsRepository,
 } from "../repositories/reportsRepository";
 

@@ -7,7 +7,13 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import { errorHandler } from "./middlewares/errorHandler"; // Adjust path as necessary
 import dotenv from "dotenv";
-dotenv.config();
+
+if (process.env.NODE_ENV === "production") {
+  dotenv.config({ path: ".env.production" });
+} else {
+  dotenv.config({ path: ".env.development" });
+}
+
 import { Server } from "socket.io";
 import { initializeSocketIO } from "./socket";
 import connectDB from "./config/database";

@@ -12,6 +12,11 @@ pids
 logs
 results
 tmp
+.env*
+.env.development
+.env.production
+.env.development
+.env.production
 
 # Build
 public/css/main.css

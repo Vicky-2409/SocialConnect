@@ -7,7 +7,11 @@ import messageRouters from "./routes/messageRoutes";
 import { errorHandler } from "./middlewares/errorHandler";
 import startConsumer from "./rabbitMQ/startConsumer";
 import dotenv from "dotenv";
-dotenv.config();
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+} else {
+  dotenv.config({ path: '.env.development' });
+}
 import { Server } from "socket.io";
 import { initializeSocketIO } from "./socket";
 import ConnectDB from "./config/database";

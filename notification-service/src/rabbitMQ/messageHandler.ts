@@ -44,7 +44,7 @@ export const MessageHandler: IMessageHandler = {
         default:
           throw new Error(`Unknown operation: ${operation}`);
       }
-      console.log(response);
+
 
       // Send response back to the replyTo queue
       // const responseBuffer = Buffer.from(JSON.stringify(response));

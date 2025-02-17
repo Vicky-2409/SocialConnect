@@ -20,7 +20,6 @@ export default class AdminRepository implements IAdminRepository {
         .populate("reportedBy") // Populate 'reportedBy' field with 'username' from 'users' collection
         .populate("entityId") // Populate 'entityId' dynamically based on 'entityType'
         .exec();
-      console.log(reportsData);
 
       return reportsData;
     } catch (error: any) {

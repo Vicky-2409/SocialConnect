@@ -8,6 +8,7 @@ interface IMessage extends Document {
   isAttachment: boolean;
   attachmentUrl: string;
   isDeleted: boolean;
+  postId?:string;
 }
 
 const MessageSchema = new Schema<IMessage>(
@@ -28,6 +29,7 @@ const MessageSchema = new Schema<IMessage>(
     isAttachment: { type: Boolean, required: true, default: false },
     attachmentUrl: { type: String },
     isDeleted: { type: Boolean, required: true, default: false },
+    postId:{ type: String }
   },
   { timestamps: true }
 );

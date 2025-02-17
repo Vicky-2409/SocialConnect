@@ -4,7 +4,7 @@ import UserRepository, {
 import PostRepository, {
   IPostRepository,
 } from "../repositories/postsRepository";
-import NotificationRepository, {
+import  {NotificationRepository,
   INotificationRepository,
 } from "../repositories/notificationRepository";
 

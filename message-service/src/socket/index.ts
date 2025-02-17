@@ -176,14 +176,25 @@ function initializeSocketIO(io: Server) {
 
     // Call Rejection
     socket.on("call:rejected", (data: { to: string; reason?: string }) => {
-      const { to, reason = "Call rejected" } = data;
+      const { to, reason } = data;
       const recipientSocketId = socketManager.getUserSocketId(to);
-
+    
       if (recipientSocketId) {
-        io.to(recipientSocketId).emit("call:rejected", {
-          from: socket.id,
-          caller: userId,
-          reason,
+        // Changed to emit to the specific socket instead of the room
+        socket.to(recipientSocketId).emit("call:rejected", {
+          from: userId, // Changed from socket.id to userId for consistency
+          reason: reason || "Call rejected"
+        });
+      }
+    });
+
+    socket.on("call:canceled", (data: { to: string }) => {
+      const { to } = data;
+      const recipientSocketId = socketManager.getUserSocketId(to);
+    
+      if (recipientSocketId) {
+        io.to(recipientSocketId).emit("call:canceled", {
+          from: socket.id
         });
       }
     });

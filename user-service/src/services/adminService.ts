@@ -126,12 +126,12 @@ export default class AdminService implements IAdminService {
   async changeTickRequestStatus(
     requestId: string,
     status: "approved" | "rejected",
-    userId: string
+    userId: string,
+    rejectionReason:string
   ) {
     try {
       const tickRequestData =
         await this.adminRepository.changeTickRequestStatus(requestId, status);
-      console.log(tickRequestData);
 
       if (status === "approved")
         await this.adminRepository.giveTickToUser(userId);
@@ -143,7 +143,7 @@ export default class AdminService implements IAdminService {
               userId.toString(),
               userId.toString(),
               "approved",
-              "Yay! Your request was accepted and you have approved with a WeNet-Tick !",
+              "Yay! Your request was accepted and you have approved with a Verified-Tick !",
               "users",
               userId.toString()
             );
@@ -157,7 +157,7 @@ export default class AdminService implements IAdminService {
               userId.toString(),
               userId.toString(),
               "rejected",
-              "Your request has been rejected since the proof was not enough!",
+              `Your request has been rejected because ${rejectionReason}`,
               "users",
               userId.toString()
             );

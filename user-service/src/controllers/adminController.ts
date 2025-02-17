@@ -132,6 +132,41 @@ export default class AdminController implements IAdminController {
     }
   }
 
+  // async changeTickRequestStatus(
+  //   req: Request,
+  //   res: Response,
+  //   next: NextFunction
+  // ): Promise<void> {
+  //   try {
+  //     const { requestId } = req.params;
+  //     const { status, userId } = req.body;
+  //     logger.info("Changing tick request status", {
+  //       requestId,
+  //       status,
+  //       userId,
+  //     });
+
+  //     if (
+  //       status != TickRequestStatus.APPROVED &&
+  //       status != TickRequestStatus.REJECTED
+  //     )
+  //       throw new Error(GeneralErrorMsg.INVALID_TICK_REQUEST);
+
+  //     const data = await this.adminService.changeTickRequestStatus(
+  //       requestId,
+  //       status,
+  //       userId
+  //     );
+  //     logger.info("Tick request status changed successfully", { requestId });
+  //     res.status(200).send(data);
+  //   } catch (error: any) {
+  //     logger.error("Error changing tick request status", {
+  //       error: error.message,
+  //     });
+  //     next(error);
+  //   }
+  // }
+
   async changeTickRequestStatus(
     req: Request,
     res: Response,
@@ -139,25 +174,39 @@ export default class AdminController implements IAdminController {
   ): Promise<void> {
     try {
       const { requestId } = req.params;
-      const { status, userId } = req.body;
+      const { status, userId, rejectionReason } = req.body;
       logger.info("Changing tick request status", {
         requestId,
         status,
         userId,
+        ...(rejectionReason && { rejectionReason })
       });
 
       if (
         status != TickRequestStatus.APPROVED &&
         status != TickRequestStatus.REJECTED
-      )
+      ) {
         throw new Error(GeneralErrorMsg.INVALID_TICK_REQUEST);
+      }
+
+      // Validate rejection reason when status is REJECTED
+      if (status === TickRequestStatus.REJECTED && !rejectionReason?.trim()) {
+        throw new Error("Rejection reason is required when rejecting a request");
+      }
 
       const data = await this.adminService.changeTickRequestStatus(
         requestId,
         status,
-        userId
+        userId,
+        rejectionReason
       );
-      logger.info("Tick request status changed successfully", { requestId });
+      
+      logger.info("Tick request status changed successfully", { 
+        requestId,
+        status,
+        ...(rejectionReason && { rejectionReason })
+      });
+      
       res.status(200).send(data);
     } catch (error: any) {
       logger.error("Error changing tick request status", {
@@ -166,4 +215,9 @@ export default class AdminController implements IAdminController {
       next(error);
     }
   }
+  
 }
+
+
+
+

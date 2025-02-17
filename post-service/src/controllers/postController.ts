@@ -34,30 +34,7 @@ export default class PostController implements IPostController {
     this.userServices = userServices;
   }
 
-  // async createPost(req: any, res: Response, next: NextFunction): Promise<void> {
 
-  //   try {
-
-  //     console.log(req.body.formData);
-
-  //     const imageFile = req.file;
-
-  //     if (!imageFile) {
-  //       logger.error("Image file not found in createPost");
-  //       throw new Error(MESSAGES.IMAGE_FILE_NOT_FOUND);
-  //     }
-
-  //     const imageUrl = await this.postsServices.uploadImage(imageFile);
-
-  //     const userId = req.user._id;
-  //     const postData = await this.postsServices.createPost(userId, imageUrl);
-  //     logger.info(`Post created by user ${userId}`);
-  //     res.status(StatusCode.OK).send({ postData });
-  //   } catch (error: any) {
-  //     logger.error(`Error in createPost: ${error.message}`);
-  //     next(error);
-  //   }
-  // }
 
   async createPost(req: any, res: Response, next: NextFunction): Promise<void> {
     try {
@@ -93,7 +70,6 @@ export default class PostController implements IPostController {
   async addCaption(req: any, res: Response, next: NextFunction): Promise<void> {
     try {
       const { _id, caption } = req.body.data;
-      console.log(_id, caption);
 
       const userId = req.user._id;
       const postData = await this.postsServices.addCaption(

@@ -15,7 +15,9 @@ export interface IMessageServices {
     convoId: string,
     senderId: string,
     message: string,
-    imageFile: Express.Multer.File | null
+    imageFile: Express.Multer.File | null,
+    postId:string,
+    postImageUrl:string
   ): Promise<IMessage>;
 
   deleteMessage(
@@ -98,17 +100,25 @@ export default class MessageServices implements IMessageServices {
     convoId: string,
     senderId: string,
     message: string,
-    imageFile: Express.Multer.File | null
+    imageFile: Express.Multer.File | null,
+    postId:string,
+    postImageUrl:string
   ): Promise<IMessage> {
     try {
       let messageData;
 
-      if (imageFile) {
-        const imageUrl = await this.messageRepository.uploadImage(imageFile);
+      if (imageFile || postImageUrl) {
+        let imageUrl
+        if(imageFile){
+           imageUrl = await this.messageRepository.uploadImage(imageFile);
+        } else {
+           imageUrl =  postImageUrl
+        }
         messageData = await this.messageRepository.saveImage(
           convoId,
           senderId,
-          imageUrl
+          imageUrl,
+          postId
         );
 
         if (!messageData) {

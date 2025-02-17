@@ -48,10 +48,10 @@ export default class CommentController implements ICommentController {
         userId,
         profilePicUrl,
         username,
-        content,
+        comment:content,
         updatedAt,
       };
-
+      console.log(commentData,"commentData for reply comment");
       res.status(StatusCode.OK).send(commentData);
     } catch (error: any) {
       logger.error(`Error in addReplyComment: ${error.message}`, { error });
@@ -62,7 +62,7 @@ export default class CommentController implements ICommentController {
     logger.info("Entering addComment method");
     try {
       const { postId } = req.params;
-      console.log(req.params, "//////////////////////////////////////////////");
+
       const id = req.user._id;
       const { comment } = req.body;
       logger.debug(
@@ -88,6 +88,7 @@ export default class CommentController implements ICommentController {
         comment,
         updatedAt,
       };
+console.log(commentData,"commentData for normal comment");
 
       res.status(StatusCode.OK).send(commentData);
     } catch (error: any) {

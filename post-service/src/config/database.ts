@@ -3,7 +3,11 @@ import dotenv from "dotenv";
 import { MESSAGES } from "../utils/constants";
 import { StatusCode } from "../utils/StatusCode";
 
-dotenv.config();
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+} else {
+  dotenv.config({ path: '.env.development' });
+}
 
 export const connectDB = async () => {
   try {

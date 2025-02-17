@@ -110,7 +110,7 @@ export default class MessageController implements IMessageController {
   async sendMessage(req: any, res: Response, next: NextFunction) {
     try {
       const { convoId } = req.params;
-      const { message } = req.body;
+      const { message, postImageUrl, postId } = req.body;
       const userId = req.user._id;
 
       const imageFile = (req.files && req.files[0]) || null;
@@ -123,7 +123,9 @@ export default class MessageController implements IMessageController {
         convoId,
         userId,
         message,
-        imageFile
+        imageFile,
+        postId,
+        postImageUrl,
       );
 
       try {

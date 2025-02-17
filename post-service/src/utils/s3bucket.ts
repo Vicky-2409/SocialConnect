@@ -10,7 +10,11 @@ import { IMulterFile } from "./types";
 import dotenv from "dotenv";
 
 // Load environment variables
-dotenv.config();
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+} else {
+  dotenv.config({ path: '.env.development' });
+}
 
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,

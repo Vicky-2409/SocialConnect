@@ -1,4 +1,14 @@
-export const RABBITMQ_URL = "amqp://rabbitmq-service:5672";
+import dotenv from "dotenv"
+
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+} else {
+  dotenv.config({ path: '.env.development' });
+}
+
+
+
+export const RABBITMQ_URL = process.env.RABBITMQ_URL || "amqp://localhost:5672/";
 
 export const SocketEventEnum = Object.freeze({
   CONNECTED_EVENT: "connected",
@@ -31,6 +41,7 @@ export const UserErrorMsg = {
   NO_USER: "No user found",
   NO_USER_DATA: "User data not found",
   NO_USERNAME: "Username not found",
+  UPDATE_FAILED:"User Update Failed"
 };
 
 export const GeneralErrorMsg = {

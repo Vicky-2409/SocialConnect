@@ -1,7 +1,7 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, Types, model, Document } from "mongoose";
 
 interface IPost extends Document {
-  _id: Types.ObjectId | string;
+  _id: Types.ObjectId;
   userId: Types.ObjectId | string;
   caption: string;
   imageUrls: string[];

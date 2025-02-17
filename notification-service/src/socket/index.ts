@@ -1,6 +1,10 @@
 import { Server, Socket } from "socket.io";
 import dotenv from "dotenv";
-dotenv.config();
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+} else {
+  dotenv.config({ path: '.env.development' });
+}
 import jwt from "jsonwebtoken";
 import userCollection, { IUser } from "../models/userCollection";
 import { INotification } from "../models/notificationCollection";
@@ -86,9 +90,7 @@ const emitNotification = (notification: INotification) => {
   if (userSocket) {
     userSocket.emit("new-notification", notification); // Emit the notification to the specific user
 
-    console.log(
-      `emitting new-notification event////////////////////////// with ${notification}`
-    );
+
   }
 };
 

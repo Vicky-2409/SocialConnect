@@ -10,7 +10,11 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import { errorHandler } from "./middlewares/errorHandler";
 import { connectDB } from "./config/database";
-dotenv.config();
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' });
+} else {
+  dotenv.config({ path: '.env.development' });
+}
 
 const app = express();
 
@@ -42,6 +46,10 @@ app.use("/api/posts-service/admin", adminRoutes);
 app.use("/api/posts-service/", postsRoutes);
 
 app.use(errorHandler);
+
+
+
+
 
 startConsumer();
 connectDB();

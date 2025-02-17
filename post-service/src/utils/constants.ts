@@ -1,10 +1,12 @@
-// PROD:
-// export const RABBITMQ_URL  = "amqp://rabbitmq-service.default.svc.cluster.local:5672"
-export const RABBITMQ_URL = "amqp://rabbitmq-service:5672";
+import dotenv from "dotenv";
 
-// DEV:
-// export const RABBITMQ_URL  = "amqp://rabbitmq:5672"
-// export const RABBITMQ_URL  =  process.env.RABBITMQ_URL;
+if (process.env.NODE_ENV === "production") {
+  dotenv.config({ path: ".env.production" });
+} else {
+  dotenv.config({ path: ".env.development" });
+}
+
+export const RABBITMQ_URL = process.env.RABBITMQ_URL || "amqp://localhost:5672/";
 
 export const MESSAGES = {
   DB_CONNECTION_SUCCESS: "Post Service DB Connected",
