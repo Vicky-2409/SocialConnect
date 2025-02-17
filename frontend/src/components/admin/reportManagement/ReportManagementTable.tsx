@@ -45,7 +45,6 @@ export default function ReportManagementTable() {
       try {
         let [reports, documentCount] =
           await postService.getReportManagementData(currentPage, rowsPerPage);
-        console.log(reports);
 
         reports = reports.map((report: any) => ({
           _id: report._id,

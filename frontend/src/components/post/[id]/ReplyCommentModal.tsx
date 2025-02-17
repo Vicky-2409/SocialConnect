@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { Bounce, ToastOptions, toast } from "react-toastify";
 import postService from "@/utils/apiCalls/postService";
+import { IComment } from "@/types/types";
 
 const toastOptions: ToastOptions = {
   position: "top-center",
@@ -20,6 +21,7 @@ interface ReplyCommentModalProps {
   onClose: () => void;
   postId?: string;
   parentCommentId: string;
+  onReplyAdded: (reply: IComment) => void;
 }
 
 const ReplyCommentModal: React.FC<ReplyCommentModalProps> = ({
@@ -27,36 +29,30 @@ const ReplyCommentModal: React.FC<ReplyCommentModalProps> = ({
   onClose,
   postId,
   parentCommentId,
+  onReplyAdded,
 }) => {
   const [replyText, setReplyText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmitReply = async () => {
-    if (!replyText.trim()) {
-      toast.error("Reply cannot be empty", toastOptions);
-      return;
-    }
+  const handleSubmitReply = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSubmitting) return;
 
-    setIsSubmitting(true);
     try {
-      await toast.promise(
-        postService.createReply({
-          postId,
-          parentCommentId,
-          content: replyText,
-        }),
-        {
-          pending: "Submitting reply...",
-          success: "Reply submitted successfully",
-          error: "Failed to submit reply",
-        },
-        toastOptions
-      );
+      setIsSubmitting(true);
+      const response = await postService.createReply({
+        postId,
+        parentCommentId,
+        content: replyText,
+      });
+      console.log(response,"resppnse//////////////////////////////////////////////////////");
+      
+      onReplyAdded(response.data);
 
       // Reset form and close modal
       setReplyText("");
       onClose();
-      window.location.reload(); // Optional: refresh to show new comment
+      toast.success("Reply added successfully", toastOptions);
     } catch (error: any) {
       console.error(error);
       const errorMessage = error?.response?.data?.length

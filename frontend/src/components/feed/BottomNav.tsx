@@ -3,9 +3,9 @@ import {
   Home,
   Bell,
   MessageSquare,
-  Bookmark,
   Search,
   PlusCircle,
+  Settings,
 } from "lucide-react";
 import Link from "next/link";
 import getUserData from "@/utils/getUserData";
@@ -26,13 +26,9 @@ const BottomNav = async ({ pathname = "/" }) => {
     { href: "/", icon: Home, label: "Home" },
     { href: "/notifications", icon: Bell, label: "Alerts" },
     { href: "/messages", icon: MessageSquare, label: "Chat" },
-    {
-      href: `/profile/${userData?.username}/bookmarks`,
-      icon: Bookmark,
-      label: "Saved",
-    },
     { href: "/search", icon: Search, label: "Search" },
     { href: "/createPost", icon: PlusCircle, label: "Create" },
+    { href: "/settings", icon: Settings, label: "Settings" }, // Added Settings option
   ];
 
   return (

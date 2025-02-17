@@ -62,7 +62,6 @@ const LoadingSpinner = () => (
 );
 
 const CreatePostPage = () => {
-  // const [userData, setUserData] = useState<UserData | null>(null);
   const [isRestrictedUntil, setIsRestrictedUntil] = useState<Date | null>(null);
   const [isRestricted, setIsRestricted] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -72,7 +71,6 @@ const CreatePostPage = () => {
     const fetchUserData = async () => {
       try {
         const decoded = await userService.getCurrUserData();
-        // setUserData(decoded);
 
         if (decoded.restrictedFromPostingUntil) {
           const restrictionDate = new Date(decoded.restrictedFromPostingUntil);

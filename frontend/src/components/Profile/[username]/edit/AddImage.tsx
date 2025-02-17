@@ -78,7 +78,6 @@ const AddImage: React.FC = () => {
           toastOptions
         );
         router.back();
-        window.location.reload();
       } catch (error) {
         console.error("Upload error:", error);
         toast.error("Failed to upload image");

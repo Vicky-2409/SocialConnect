@@ -12,6 +12,7 @@ type props = {
   attachmentUrl?: string;
   isDeleted: boolean;
   messageId: string;
+  postId?:string;
   onDelete: (messageId: string) => void;
 };
 
@@ -24,9 +25,11 @@ function SingleMessage(props: props) {
     isAttachment,
     attachmentUrl,
     isDeleted,
+    postId,
     onDelete,
     messageId,
   } = props;
+
 
   if (!currUser) return <h1>Loading...</h1>;
 
@@ -67,6 +70,7 @@ function SingleMessage(props: props) {
           isDeleted={false}
           onDelete={onDelete}
           messageId={messageId}
+          postId={postId}
         />
       );
     }
@@ -121,6 +125,7 @@ function SingleMessage(props: props) {
           isDeleted={false}
           onDelete={onDelete}
           messageId={messageId}
+          postId={postId}
         />
       );
     }

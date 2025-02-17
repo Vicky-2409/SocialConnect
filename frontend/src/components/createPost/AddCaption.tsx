@@ -36,7 +36,6 @@ type Inputs = {
   caption: string;
 };
 
-// Custom styled components
 const StyledPaper = styled(Paper)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   overflow: "hidden",
@@ -58,7 +57,7 @@ const ImageContainer = styled(Box)(({ theme }) => ({
 const CarouselContainer = styled(Box)({
   position: "relative",
   width: "100%",
-  aspectRatio: "1/1",
+  aspectRatio: "4/3",
 });
 
 const NavigationButton = styled(IconButton)(({ theme }) => ({
@@ -82,16 +81,21 @@ const NavigationDots = styled(Box)({
   zIndex: 2,
 });
 
-const Dot = styled(Box)<{ active?: boolean }>(({ active, theme }) => ({
+interface DotProps {
+  isActive: boolean; // Changed from active to isActive for clarity
+}
+
+const Dot = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "isActive", // Prevent isActive from being forwarded to DOM
+})<DotProps>(({ isActive, theme }) => ({
   width: "8px",
   height: "8px",
   borderRadius: "50%",
-  backgroundColor: active
+  backgroundColor: isActive
     ? theme.palette.primary.main
     : "rgba(255, 255, 255, 0.6)",
   cursor: "pointer",
   transition: "background-color 0.3s ease",
-  dataActive: active ? "true" : "false", // Ensuring it's a string
 }));
 
 function AddCaption({ postData }: Props) {
@@ -123,15 +127,20 @@ function AddCaption({ postData }: Props) {
   };
 
   const onEmojiClick = (emojiObject: any) => {
-    const caption = watch("caption") || "";
-    setValue("caption", caption + emojiObject.emoji);
+    const currentCaption = watch("caption") || "";
+    setValue("caption", currentCaption + emojiObject.emoji);
+    setShowEmojiPicker(false); // Close picker after selection
   };
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      data._id = postData._id;
+      const postDataToSubmit = {
+        ...data,
+        _id: postData._id,
+      };
+
       const res = await toast.promise(
-        postService.createPost(data),
+        postService.createPost(postDataToSubmit),
         {
           pending: "Creating your masterpiece...",
           success: "Post shared successfully! 🎉",
@@ -188,12 +197,17 @@ function AddCaption({ postData }: Props) {
             <CarouselContainer>
               {postData.imageUrls.length > 1 && (
                 <>
-                  <NavigationButton onClick={handlePrevImage} sx={{ left: 16 }}>
+                  <NavigationButton
+                    onClick={handlePrevImage}
+                    sx={{ left: 16 }}
+                    aria-label="Previous image"
+                  >
                     <ChevronLeftIcon />
                   </NavigationButton>
                   <NavigationButton
                     onClick={handleNextImage}
                     sx={{ right: 16 }}
+                    aria-label="Next image"
                   >
                     <ChevronRightIcon />
                   </NavigationButton>
@@ -214,8 +228,10 @@ function AddCaption({ postData }: Props) {
                   {postData.imageUrls.map((_, index) => (
                     <Dot
                       key={index}
-                      active={index === currentImageIndex}
+                      isActive={index === currentImageIndex}
                       onClick={() => setCurrentImageIndex(index)}
+                      role="button"
+                      aria-label={`Go to image ${index + 1}`}
                     />
                   ))}
                 </NavigationDots>
@@ -256,6 +272,7 @@ function AddCaption({ postData }: Props) {
                     <IconButton
                       onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                       sx={{ position: "absolute", bottom: 8, right: 8 }}
+                      aria-label="Add emoji"
                     >
                       <EmojiEmotionsIcon />
                     </IconButton>

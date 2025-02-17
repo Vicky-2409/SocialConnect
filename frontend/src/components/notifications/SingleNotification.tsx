@@ -41,9 +41,8 @@ function SingleNotification({
   // Define notification states
   const isRestricted =
     notificationMessage === "You are restricted for posting content for 7 days";
-  const isRejected =
-    notificationMessage ===
-    "Your request has been rejected since the proof was not enough!";
+    
+    const isRejected = /^Your request has been rejected because/.test(notificationMessage);
   const isApproved =
     notificationMessage ===
     "Yay! Your request was accepted and you have approved with a WeNet-Tick !";

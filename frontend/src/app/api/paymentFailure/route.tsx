@@ -4,8 +4,6 @@ import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   // Use NextRequest type instead of any
-  const contentType = req.headers.get("content-type") || "";
-  console.log({ contentType });
 
   const data: { [key: string]: any } = {};
 

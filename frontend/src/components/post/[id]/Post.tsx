@@ -10,6 +10,7 @@ import postService from "@/utils/apiCalls/postService";
 import { storePostData } from "@/redux/postSlice";
 import { IPost, IUser } from "@/types/types";
 import { toastOptions } from "@/utils/toastOptions";
+import SinglePost from "@/components/feed/SinglePost";
 
 function Post({ currUserData }: { currUserData: IUser }) {
   const { id } = useParams<{ id: string }>();
@@ -79,7 +80,7 @@ function Post({ currUserData }: { currUserData: IUser }) {
     );
   }
 
-  return <FeedPost postData={postData} currUserData={currUserData} />;
+  return <SinglePost postData={postData} currUserData={currUserData} />;
 }
 
 export default Post;

@@ -53,15 +53,17 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
   };
 
   return (
-    <div className="relative aspect-square w-full overflow-hidden bg-gray-100">
-      {/* Current Image */}
-      <Image
-        src={images[currentIndex]}
-        fill
-        alt={`Post image ${currentIndex + 1}`}
-        className="object-cover transition-transform hover:scale-105 duration-300"
-        unoptimized
-      />
+    <div className="relative w-full bg-gray-100">
+      {/* Image Container */}
+      <div className="relative w-full" style={{ paddingBottom: "75%" }}> {/* 4:3 aspect ratio */}
+        <Image
+          src={images[currentIndex]}
+          fill
+          alt={`Post image ${currentIndex + 1}`}
+          className="absolute top-0 left-0 h-full w-full object-contain bg-gray-100 transition-transform hover:scale-105 duration-300"
+          unoptimized
+        />
+      </div>
 
       {/* Navigation Arrows - Only show if there are multiple images */}
       {images.length > 1 && (

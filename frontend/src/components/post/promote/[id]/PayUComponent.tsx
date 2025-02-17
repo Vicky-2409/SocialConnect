@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import PayUApiCalls from "@/utils/apiCalls/PayUApiCalls";
-import { FRONTEND_DOMAIN, PayU } from "@/utils/constants";
+import { FRONTEND_DOMAIN, PAYU_MERCHANT_KEY } from "@/utils/constants";
 import { IUser } from "@/types/types";
 import { generateTxnId } from "@/utils/generateTxnId";
 
@@ -20,7 +20,7 @@ const PayUComponent = ({ currUserData, postId }: props) => {
   const productinfo = postId;
   const firstname = firstName;
   const lastname = lastName;
-  const key = PayU.merchantKey;
+  const key = PAYU_MERCHANT_KEY;
   const phone = "1234567890"; // Ensure this is a string
   const surl = `${FRONTEND_DOMAIN}/api/paymentSuccess`;
   const furl = `${FRONTEND_DOMAIN}/api/paymentFailure`;

@@ -11,6 +11,7 @@ import BasicPopover from "../post/[id]/BasicPopover";
 import { IPost, IUser } from "@/types/types";
 import PostCommentInput from "./PostCommentInput";
 import { useSwipeable } from "react-swipeable";
+import { Share } from "lucide-react";
 import ShareModal from "./ShareModal";
 
 interface LikedUser {
@@ -24,7 +25,7 @@ interface Props {
   currUserData?: IUser;
 }
 
-const FeedPost: React.FC<Props> = ({ postData, currUserData }) => {
+const SinglePost: React.FC<Props> = ({ postData, currUserData }) => {
   const router = useRouter();
   const [isVerified, setIsVerified] = useState(false);
   const [showHeart, setShowHeart] = useState(false);
@@ -235,7 +236,7 @@ const FeedPost: React.FC<Props> = ({ postData, currUserData }) => {
         style={{ paddingBottom: "75%" }} // This creates the 4:3 ratio
         {...swipeHandlers}
       >
-        {currUserData && showShareModal && (
+        {showShareModal && (
           <div className="absolute inset-0 z-40 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="w-full max-w-md bg-white rounded-lg overflow-hidden">
               <ShareModal
@@ -246,7 +247,6 @@ const FeedPost: React.FC<Props> = ({ postData, currUserData }) => {
             </div>
           </div>
         )}
-
         {showHeart && (
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <svg
@@ -415,6 +415,7 @@ const FeedPost: React.FC<Props> = ({ postData, currUserData }) => {
               <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
             </svg>
           </button>
+
         </div>
 
         <button
@@ -438,11 +439,6 @@ const FeedPost: React.FC<Props> = ({ postData, currUserData }) => {
           </svg>
         </button>
       </div>
-      <PostCommentInput
-        postId={postData._id}
-        currUserData={currUserData}
-        onCommentAdded={handleCommentAdded}
-      />
 
       {showLikesModal && (
         <div className="absolute inset-0 flex items-center justify-center z-50">
@@ -503,4 +499,4 @@ const FeedPost: React.FC<Props> = ({ postData, currUserData }) => {
   );
 };
 
-export default FeedPost;
+export default SinglePost;

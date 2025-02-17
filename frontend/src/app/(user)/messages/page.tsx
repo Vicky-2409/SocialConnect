@@ -6,7 +6,6 @@ import { Loader2 } from "lucide-react";
 export default async function MessagesPage() {
   let currUser;
 
-  // Fetching user data
   try {
     const { userData } = await getUserData();
     if (!userData) throw new Error("User data not found");
@@ -26,7 +25,6 @@ export default async function MessagesPage() {
 
   return (
     <div className="h-screen w-full bg-gray-50 flex flex-col">
-      {/* Mobile View - Visible on mobile and desktop */}
       <div className="flex-1 overflow-hidden">
         <MobileView currUser={currUser} />
       </div>

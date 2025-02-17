@@ -73,15 +73,42 @@ export default {
       throw new Error(errorMessage);
     }
   },
+  // changeTickRequestStatus: async function (
+  //   requestId: string,
+  //   status: "approved" | "rejected",
+  //   userId: string
+  // ) {
+  //   try {
+  //     const res = await apiClient.patch(
+  //       `/changeTickRequestStatus/${requestId}`,
+  //       { status, userId }
+  //     );
+  //     return res.data;
+  //   } catch (error: any) {
+  //     const errorMessage =
+  //       error.response && error.response?.data?.length
+  //         ? error.response.data
+  //         : "Failed change tick request status";
+  //     throw new Error(errorMessage);
+  //   }
+  // },
+
   changeTickRequestStatus: async function (
     requestId: string,
     status: "approved" | "rejected",
-    userId: string
+    userId: string,
+    rejectionReason?: string
   ) {
     try {
+      const requestBody = {
+        status,
+        userId,
+        ...(status === "rejected" && rejectionReason ? { rejectionReason } : {})
+      };
+
       const res = await apiClient.patch(
         `/changeTickRequestStatus/${requestId}`,
-        { status, userId }
+        requestBody
       );
       return res.data;
     } catch (error: any) {

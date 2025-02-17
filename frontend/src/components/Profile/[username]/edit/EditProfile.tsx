@@ -154,7 +154,7 @@ function EditProfile() {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       data._id = userData?._id;
-      await toast.promise(
+      const updatedUser =  await toast.promise(
         userService.editProfile(data),
         {
           pending: "Saving changes",
@@ -163,7 +163,9 @@ function EditProfile() {
         },
         toastOptions
       );
+
       router.replace(`/profile/${userData?.username}`);
+      router.refresh()
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message || "Failed to edit profile";

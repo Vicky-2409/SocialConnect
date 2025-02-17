@@ -15,18 +15,15 @@ const UserLayout = async ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {/* Main Content */}
-      {/* <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"> */}
       <div className="mx-auto max-w-full px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex gap-6">
           {/* Left Sidebar */}
-          <aside className="sticky top-20 hidden h-[calc(100vh-2rem)] w-72 md:block overflow-y-auto">
-            <div className="rounded-2xl bg-white/80 backdrop-blur-sm shadow-lg shadow-gray-100/50 transition-all duration-300 hover:shadow-xl">
-              <SideBar />
-            </div>
+          <aside className="fixed hidden md:block">
+            <SideBar />
           </aside>
 
           {/* Main Feed */}
-          <main className="flex-grow space-y-6">
+          <main className="flex-grow space-y-6 md:ml-80">
             <div className="min-h-[calc(100vh-8rem)] rounded-2xl bg-white/80 backdrop-blur-sm p-6 shadow-lg shadow-gray-100/50 transition-all duration-300">
               <React.Suspense
                 fallback={

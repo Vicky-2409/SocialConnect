@@ -170,26 +170,38 @@ function CropImage({ setIsCaptionPage, setPostData }: CropImageProps) {
           return;
         }
 
-        // Calculate the square crop dimensions
-        const size = Math.min(img.width, img.height);
-        const startX = (img.width - size) / 2;
-        const startY = (img.height - size) / 2;
+        // Calculate the 4:3 crop dimensions
+        const targetRatio = 4 / 3;
+        let width = img.width;
+        let height = img.height;
+        let startX = 0;
+        let startY = 0;
 
-        // Set canvas to be square
-        canvas.width = size;
-        canvas.height = size;
+        if (width / height > targetRatio) {
+          // Image is wider than 4:3
+          width = height * targetRatio;
+          startX = (img.width - width) / 2;
+        } else {
+          // Image is taller than 4:3
+          height = width / targetRatio;
+          startY = (img.height - height) / 2;
+        }
+
+        // Set canvas to 4:3 dimensions
+        canvas.width = width;
+        canvas.height = height;
 
         // Draw the cropped image
         ctx.drawImage(
           img,
           startX,
           startY,
-          size,
-          size, // Source rectangle
+          width,
+          height, // Source rectangle
           0,
           0,
-          size,
-          size // Destination rectangle
+          width,
+          height // Destination rectangle
         );
 
         // Convert to blob
@@ -427,7 +439,7 @@ function CropImage({ setIsCaptionPage, setPostData }: CropImageProps) {
                 autoCropArea={1}
                 checkOrientation={false}
                 guides={true}
-                aspectRatio={1}
+                aspectRatio={4 / 3}
               />
             </Paper>
             <Button

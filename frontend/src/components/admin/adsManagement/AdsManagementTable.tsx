@@ -38,7 +38,6 @@ export default function AdsManagementTable() {
           currentPage,
           rowsPerPage
         );
-        console.log(responseFormat);
 
         setAdsData(responseFormat);
         setDocumentCount(count);

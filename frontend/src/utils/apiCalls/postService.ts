@@ -40,8 +40,6 @@ export default {
   //posts
 
   createReply: async function (data: ReplyCommentProps) {
-    console.log(data);
-
     try {
       const res = await apiClient.post("/comment/createReply", {
         data,
@@ -106,8 +104,6 @@ export default {
 
   createPost: async function (data: postInputs) {
     try {
-      console.log(data);
-
       const res = await apiClient.post("/createPost", {
         data,
       });
@@ -298,13 +294,6 @@ export default {
   },
   deleteComment: async function (commentId: string) {
     try {
-      // const url = `${postServiceUrl}/comment/${commentId}`;
-      // const res = await axios.delete(url, { withCredentials: true });
-      console.log(
-        commentId,
-        "commentId//////////////////////////////////////////"
-      );
-
       const res = await apiClient.delete(`/comment/${commentId}`);
 
       return res.data;

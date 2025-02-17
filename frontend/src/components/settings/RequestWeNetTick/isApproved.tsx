@@ -6,7 +6,7 @@ function isApproved() {
     <div className="w-full h-[75%] flex flex-col items-center justify-center">
       <div>
         <Image
-          src={"/icons/wenetTick.png"}
+          src={"/icons/Verified-tick.png"}
           alt="pending icon"
           width={64}
           height={64}

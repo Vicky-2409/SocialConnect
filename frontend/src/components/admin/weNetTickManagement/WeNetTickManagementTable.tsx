@@ -22,6 +22,7 @@ type RequestData = {
   imageUrl: string;
   description: string;
   status: "pending" | "approved" | "rejected";
+  rejectionReason?: string;
 };
 
 export default function WeNetTickManagementTable() {
@@ -33,6 +34,7 @@ export default function WeNetTickManagementTable() {
   const [statusValue, setStatusValue] = React.useState<
     "approved" | "rejected" | "pending"
   >("pending");
+  const [rejectionReason, setRejectionReason] = React.useState("");
 
   React.useEffect(() => {
     (async function (currentPage: number, rowsPerPage: number) {
@@ -49,10 +51,21 @@ export default function WeNetTickManagementTable() {
 
   async function changeStatus(requestId: string, userId: string) {
     try {
-      if (statusValue === "pending")
+      if (statusValue === "pending") {
         throw new Error("Selected status value not found");
+      }
+
+      if (statusValue === "rejected" && !rejectionReason.trim()) {
+        throw new Error("Please provide a reason for rejection");
+      }
+
       await toast.promise(
-        userService.changeTickRequestStatus(requestId, statusValue, userId),
+        userService.changeTickRequestStatus(
+          requestId,
+          statusValue,
+          userId,
+          statusValue === "rejected" ? rejectionReason : undefined
+        ),
         {
           pending: "Processing request...",
           success: "Status updated successfully",
@@ -60,6 +73,7 @@ export default function WeNetTickManagementTable() {
         },
         toastOptions
       );
+      setRejectionReason("");
       setChanged((prev) => !prev);
     } catch (error: any) {
       toast.error(error.message, toastOptions);
@@ -161,20 +175,34 @@ export default function WeNetTickManagementTable() {
                       <div className="flex flex-col space-y-2">
                         <select
                           className="border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
-                          onChange={(e) =>
-                            setStatusValue(e.target.value as any)
-                          }
+                          onChange={(e) => {
+                            setStatusValue(e.target.value as any);
+                            if (e.target.value !== "rejected") {
+                              setRejectionReason("");
+                            }
+                          }}
                           value={statusValue}
                         >
                           <option value="pending">Pending</option>
                           <option value="approved">Approve</option>
                           <option value="rejected">Reject</option>
                         </select>
+                        {statusValue === "rejected" && (
+                          <textarea
+                            placeholder="Enter reason for rejection"
+                            value={rejectionReason}
+                            onChange={(e) => setRejectionReason(e.target.value)}
+                            className="border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-1.5 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-blue-500 outline-none w-full resize-none"
+                            rows={3}
+                          />
+                        )}
                         <AlertDialog
                           onConfirm={() =>
                             changeStatus(data.requestId, data.userId)
                           }
-                          alert="Are you sure you want to change the status?"
+                          alert={`Are you sure you want to ${
+                            statusValue === "rejected" ? "reject" : "approve"
+                          } this request?`}
                         >
                           <button className="px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
                             Update
@@ -182,27 +210,34 @@ export default function WeNetTickManagementTable() {
                         </AlertDialog>
                       </div>
                     ) : (
-                      <div
-                        className={`inline-flex items-center px-3 py-1.5 rounded-lg space-x-2 ${
-                          data.status === "approved"
-                            ? "bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400"
-                            : "bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400"
-                        }`}
-                      >
-                        <Image
-                          src={
+                      <div className="space-y-2">
+                        <div
+                          className={`inline-flex items-center px-3 py-1.5 rounded-lg space-x-2 ${
                             data.status === "approved"
-                              ? "/icons/wenetTick.png"
-                              : "/icons/rejected.png"
-                          }
-                          alt={data.status}
-                          width={20}
-                          height={20}
-                        />
-                        <span className="text-sm font-medium">
-                          {data.status.charAt(0).toUpperCase() +
-                            data.status.slice(1)}
-                        </span>
+                              ? "bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400"
+                              : "bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400"
+                          }`}
+                        >
+                          <Image
+                            src={
+                              data.status === "approved"
+                                ? "/icons/Verified-tick.png"
+                                : "/icons/rejected.png"
+                            }
+                            alt={data.status}
+                            width={24}
+                            height={24}
+                          />
+                          <span className="text-sm font-medium">
+                            {data.status.charAt(0).toUpperCase() +
+                              data.status.slice(1)}
+                          </span>
+                        </div>
+                        {data.status === "rejected" && data.rejectionReason && (
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            Reason: {data.rejectionReason}
+                          </div>
+                        )}
                       </div>
                     )}
                   </td>

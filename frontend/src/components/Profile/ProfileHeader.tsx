@@ -118,20 +118,21 @@ function ProfileHeader({ currUser }: { currUser: IUser }) {
           {/* Profile Picture */}
           <div className="relative inline-block">
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-full ring-4 ring-white overflow-hidden">
-              {/* <Image
+              <Image
                 src={profilePicUrl}
                 alt={`${firstName}'s profile`}
                 width={160}
                 height={160}
                 className="w-full h-full object-cover transition duration-200 hover:scale-105"
-              /> */}
+                unoptimized
+              />
 
-              <StyledAvatar src={profilePicUrl} alt={firstName} />
+              {/* <StyledAvatar src={profilePicUrl} alt={firstName} /> */}
             </div>
             {isVerified && (
               <div className="absolute bottom-2 right-2 bg-white rounded-full p-1">
                 <Image
-                  src="/icons/wenetTick.png"
+                  src="/icons/Verified-tick.png"
                   alt="Verified"
                   height={24}
                   width={24}
