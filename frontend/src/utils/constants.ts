@@ -29,8 +29,8 @@ export const USER_SOCKET_URI = USER_SERVICE_DOMAIN;
 export const NOTIFICATION_SOCKET_URI = NOTIFICATION_SERVICE_DOMAIN;
 
 // Auth related constants
-export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-export const PAYU_MERCHANT_KEY = process.env.NEXT_PUBLIC_PAYU_MERCHANT_KEY;
+export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "317927446358-jdmtckvmtcoig73is4ms4obffi1ii1vj.apps.googleusercontent.com";
+export const PAYU_MERCHANT_KEY = process.env.NEXT_PUBLIC_PAYU_MERCHANT_KEY || "O5ouUQ";
 
 // Server-side only secrets (don't prefix with NEXT_PUBLIC_)
 export const JWT_SECRET = process.env.JWT_SECRET;
