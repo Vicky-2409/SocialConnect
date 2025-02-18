@@ -615,7 +615,7 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
   to,
   isOpen,
   onClose,
-  isIncoming = false,
+  isIncoming,
   incomingOffer = null,
   incomingFrom = "",
 }) => {
