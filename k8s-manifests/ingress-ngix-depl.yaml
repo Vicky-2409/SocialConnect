@@ -34,6 +34,13 @@ spec:
                 name: posts-service-srv
                 port:
                   number: 5002
+          - path: /socket.io/notifications/
+            pathType: Prefix
+            backend:
+              service:
+                name: notification-service-srv
+                port:
+                  number: 5004
           - path: /socket.io
             pathType: Prefix
             backend:

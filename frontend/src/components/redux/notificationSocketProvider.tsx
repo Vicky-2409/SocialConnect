@@ -24,6 +24,7 @@ const NotificationSocketProvider: React.FC<{ children: React.ReactNode }> = ({
 
     if (token) {
       const socketInstance = io(NOTIFICATION_SOCKET_URI, {
+        path: '/socket.io/notifications',
         withCredentials: true,
         auth: { token },
       });

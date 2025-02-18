@@ -11,10 +11,10 @@ import { Server } from "socket.io";
 import { initializeSocketIO } from "./socket";
 
 import dotenv from "dotenv";
-if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: '.env.production' });
+if (process.env.NODE_ENV === "production") {
+  dotenv.config({ path: ".env.production" });
 } else {
-  dotenv.config({ path: '.env.development' });
+  dotenv.config({ path: ".env.development" });
 }
 connectDB();
 
@@ -30,6 +30,7 @@ const corsOptions = {
 const io = new Server(httpServer, {
   pingTimeout: 60000,
   cors: corsOptions,
+  path: "/socket.io/notifications",
 });
 
 app.set("io", io);
