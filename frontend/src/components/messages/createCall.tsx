@@ -619,6 +619,14 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
   incomingOffer = null,
   incomingFrom = "",
 }) => {
+
+  console.log(to,
+    isOpen,
+    onClose,
+    isIncoming,
+    incomingOffer,
+    incomingFrom );
+  
   const socket = useSocket();
   if (!socket || !isOpen) return null;
 
