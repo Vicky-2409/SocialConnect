@@ -34,15 +34,15 @@ spec:
                 name: posts-service-srv
                 port:
                   number: 5002
-          - path: /socket.io/notifications/
-            pathType: Exact
+          - path: /socket\.io/notifications(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: notification-service-srv
                 port:
                   number: 5004
-          - path: /socket.io
-            pathType: Prefix
+          - path: /socket\.io(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: message-service-srv
