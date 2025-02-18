@@ -33,7 +33,6 @@ function SingleComment({ userId }: props) {
               commentData={seggregateData(comment)}
               currentUserId={userId}
               postId={postData._id}
-              isReply={false}
             />
           ))
         ) : (
