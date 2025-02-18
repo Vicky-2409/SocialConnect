@@ -35,7 +35,7 @@ spec:
                 port:
                   number: 5002
           - path: /socket.io/notifications/
-            pathType: Prefix
+            pathType: Exact
             backend:
               service:
                 name: notification-service-srv
