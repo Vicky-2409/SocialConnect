@@ -610,10 +610,11 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
     incomingFrom
   );
   const socket = useSocket();
+  const callInitializedRef = useRef(false);
   if (!socket || !isOpen) return null;
 
   const initializationRef = useRef(false);
-
+  const [isInitialized, setIsInitialized] = useState(false);
   const [callState, setCallState] = useState({
     isCalling: false,
     callEstablished: false,
@@ -940,58 +941,87 @@ const VideoCallModal: React.FC<VideoCallModalProps> = ({
   }, [socket, isOpen, callState.callId]);
 
   // Initialize Call Effect - Register this after socket events
-// In VideoCallModal.tsx
-useEffect(() => {
-  if (!isOpen || initializationRef.current) return;
-
-  const initializeCall = async () => {
-    // Set initialization flag
-    initializationRef.current = true;
-    
-    webRTCHandlers.setupPeerConnection();
-    
-    if (refs.peer.current) {
-      refs.dataChannel.current = refs.peer.current.createDataChannel("mediaState");
-      webRTCHandlers.setupDataChannel(refs.dataChannel.current);
-      
-      refs.peer.current.ondatachannel = (event) => {
-        webRTCHandlers.setupDataChannel(event.channel);
-      };
-      
-      // Check if this is an incoming call with valid offer
-      if (isIncoming && incomingOffer && incomingFrom) {
-        console.log(`Handling incoming call with ID: ${callState.callId}`);
-        try {
-          await callHandlers.handleIncomingCall(incomingOffer, incomingFrom);
-        } catch (error) {
-          console.error("Error handling incoming call:", error);
-          initializationRef.current = false; // Reset on error
-          onClose();
-        }
-      } else if (!isIncoming && !callState.callInitiated) {
-        // Only start outgoing call if not already initiated
-        console.log(`Starting outgoing call with ID: ${callState.callId}`);
-        callHandlers.startOutgoingCall();
-      }
-    }
-  };
-
-  initializeCall();
-
-  return () => {
-    if (!callState.callEstablished) {
-      callHandlers.cleanup();
-    }
-    initializationRef.current = false;
-  };
-}, [isOpen, incomingOffer, incomingFrom, isIncoming]);
-
-  // Media State Updates
+  // In VideoCallModal.tsx
   useEffect(() => {
-    if (callState.callEstablished) {
+    if (!isOpen || !socket || callInitializedRef.current) return;
+
+    const initializeCall = async () => {
+      try {
+        // Setup peer connection first
+        webRTCHandlers.setupPeerConnection();
+
+        if (!refs.peer.current) return;
+
+        // Setup data channel
+        refs.dataChannel.current =
+          refs.peer.current.createDataChannel("mediaState");
+        webRTCHandlers.setupDataChannel(refs.dataChannel.current);
+
+        refs.peer.current.ondatachannel = (event) => {
+          webRTCHandlers.setupDataChannel(event.channel);
+        };
+
+        if (isIncoming && incomingOffer) {
+          console.log("Handling incoming call", {
+            incomingFrom,
+            hasOffer: !!incomingOffer,
+          });
+
+          // For incoming calls, set remote description first
+          await refs.peer.current.setRemoteDescription(
+            new RTCSessionDescription(incomingOffer)
+          );
+
+          // Start local stream
+          await webRTCHandlers.startLocalStream();
+
+          // Create and set answer
+          const answer = await refs.peer.current.createAnswer();
+          await refs.peer.current.setLocalDescription(answer);
+
+          // Send answer to caller
+          socket.emit("call:accepted", { answer, to: incomingFrom });
+        } else if (!isIncoming) {
+          // For outgoing calls, start local stream first
+          await webRTCHandlers.startLocalStream();
+
+          // Then create and send offer
+          const offer = await refs.peer.current.createOffer();
+          await refs.peer.current.setLocalDescription(offer);
+          socket.emit("outgoing:call", { fromOffer: offer, to });
+        }
+
+        setCallState((prev) => ({
+          ...prev,
+          isCalling: true,
+          callInitiated: true,
+        }));
+
+        callInitializedRef.current = true;
+        setIsInitialized(true);
+      } catch (error) {
+        console.error("Error initializing call:", error);
+        onClose();
+      }
+    };
+
+    initializeCall();
+
+    return () => {
+      // Only cleanup if the call wasn't established
+      if (!callState.callEstablished) {
+        callHandlers.cleanup();
+      }
+    };
+  }, [isOpen, socket, isIncoming, incomingOffer, incomingFrom]);
+
+  // Add state synchronization effect
+  useEffect(() => {
+    if (isInitialized && socket) {
+      // Synchronize media state
       webRTCHandlers.sendMediaState();
     }
-  }, [mediaState.isMuted, mediaState.isVideoOff, callState.callEstablished]);
+  }, [isInitialized, mediaState.isMuted, mediaState.isVideoOff]);
 
   // UI Render
   return (

@@ -184,6 +184,11 @@ function SingleConvo({
     from: "",
     offer: null,
   });
+  const activeCallRef = useRef<{
+    isIncoming: boolean;
+    offer: RTCSessionDescriptionInit | null;
+    from: string;
+  } | null>(null);
 
   const { messages, addMessage, updateDeletedMessage, handleMessageReceived } =
     useMessages(convoId);
@@ -237,25 +242,28 @@ function SingleConvo({
   useEffect(() => {
     if (!socket) return;
 
-    socket.on(ChatEventEnum.MESSAGE_RECEIVED_EVENT, handleMessageReceived);
     socket.on("incoming:call", ({ offer, from }) => {
-      setCallState({ isIncoming: true, from, offer });
+      // Store the call state immediately
+      const callData = {
+        isIncoming: true,
+        offer,
+        from
+      };
+      
+      activeCallRef.current = callData;
+      setCallState(callData);
     });
+
     socket.on("call:canceled", () => {
       toast.info("Call was canceled");
-      cleanupCall();
-    });
-    socket.on("call:rejected", ({ reason }) => {
-      toast.info(reason || "Call was declined");
+      activeCallRef.current = null;
+      setCallState({ isIncoming: false, from: "", offer: null });
       setShowVideoCallModal(false);
-      cleanupCall();
     });
 
     return () => {
-      socket.off(ChatEventEnum.MESSAGE_RECEIVED_EVENT);
       socket.off("incoming:call");
       socket.off("call:canceled");
-      socket.off("call:rejected");
     };
   }, [socket]);
 
@@ -291,6 +299,13 @@ function SingleConvo({
     }
   };
 
+  const handleAcceptCall = () => {
+    if (!activeCallRef.current) return;
+    
+    // Use the stored call state when opening the modal
+    setShowVideoCallModal(true);
+  };
+
   const handleDelete = async (messageId: string) => {
     await messageService.deleteMessage(convoId, messageId);
     updateDeletedMessage(messageId);
@@ -315,6 +330,7 @@ function SingleConvo({
   };
 
   const cleanupCall = () => {
+    activeCallRef.current = null;
     setCallState({ isIncoming: false, from: "", offer: null });
     setShowVideoCallModal(false);
   };
@@ -420,6 +436,7 @@ function SingleConvo({
           isOpen={showVideoCallModal}
           onClose={() => {
             setShowVideoCallModal(false);
+            activeCallRef.current = null; 
             cleanupCall();
           }}
           isIncoming={callState.isIncoming}
