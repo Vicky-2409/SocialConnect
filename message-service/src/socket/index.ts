@@ -174,16 +174,30 @@ function initializeSocketIO(io: Server) {
       }
     });
 
+    // Add to your socket.io server code
+    socket.on(
+      "media:state:change",
+      (data: { to: string; isAudioMuted?: boolean; isVideoOff?: boolean }) => {
+        const recipientSocketId = socketManager.getUserSocketId(data.to);
+        if (recipientSocketId) {
+          io.to(recipientSocketId).emit("remote:media:state", {
+            isAudioMuted: data.isAudioMuted,
+            isVideoOff: data.isVideoOff,
+          });
+        }
+      }
+    );
+
     // Call Rejection
     socket.on("call:rejected", (data: { to: string; reason?: string }) => {
       const { to, reason } = data;
       const recipientSocketId = socketManager.getUserSocketId(to);
-    
+
       if (recipientSocketId) {
         // Changed to emit to the specific socket instead of the room
         socket.to(recipientSocketId).emit("call:rejected", {
           from: userId, // Changed from socket.id to userId for consistency
-          reason: reason || "Call rejected"
+          reason: reason || "Call rejected",
         });
       }
     });
@@ -191,10 +205,10 @@ function initializeSocketIO(io: Server) {
     socket.on("call:canceled", (data: { to: string }) => {
       const { to } = data;
       const recipientSocketId = socketManager.getUserSocketId(to);
-    
+
       if (recipientSocketId) {
         io.to(recipientSocketId).emit("call:canceled", {
-          from: socket.id
+          from: socket.id,
         });
       }
     });
